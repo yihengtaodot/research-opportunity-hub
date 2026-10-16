@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Opportunity Hub — UC Berkeley</title>
+<meta name="description" content="A central discovery platform for UC Berkeley undergraduate research opportunities: programs, labs, fellowships, and funding.">
+<style>
+  :root{
+    --berkeley-blue:#003262;
+    --berkeley-blue-dark:#00274e;
+    --california-gold:#FDB515;
+    --ink:#1a1a1a;
+    --muted:#5f6368;
+    --line:#e3e6ea;
+    --bg:#f6f7f9;
+    --card:#ffffff;
+    --soon:#c62828;
+    --soon-bg:#fdecea;
+    --month:#e65100;
+    --month-bg:#fff4e5;
+    --upcoming:#2e7d32;
+    --upcoming-bg:#e8f5e9;
+    --ongoing:#616161;
+    --ongoing-bg:#f1f3f4;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+  a{color:var(--berkeley-blue)}
+  :focus-visible{outline:3px solid var(--california-gold);outline-offset:2px;border-radius:6px}
+
+  /* ---------- Header ---------- */
+  .site-header{position:sticky;top:0;z-index:50;background:var(--berkeley-blue);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+  .site-header .wrap{max-width:1180px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:64px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;font-weight:700;font-size:1.05rem;letter-spacing:.2px}
+  .brand-mark{width:36px;height:36px;border-radius:10px;background:var(--california-gold);color:var(--berkeley-blue);display:grid;place-items:center;font-size:1.25rem;font-weight:800}
+  .site-nav{margin-left:auto;display:flex;gap:4px}
+  .site-nav a{color:#fff;text-decoration:none;padding:8px 14px;border-radius:8px;font-size:.92rem;opacity:.92}
+  .site-nav a:hover{background:rgba(255,255,255,.12);opacity:1}
+  @media(max-width:720px){.site-nav{display:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{background:linear-gradient(135deg,var(--berkeley-blue) 0%,#0a4a86 60%,#0e5aa8 100%);color:#fff;padding:64px 20px 56px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-80px;top:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(253,181,21,.28),transparent 70%)}
+  .hero .wrap{max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1}
+  .hero h1{font-size:2.4rem;margin:0 0 12px;letter-spacing:-.5px}
+  .hero p{font-size:1.08rem;opacity:.92;max-width:640px;margin:0 auto 26px}
+  .searchbar{display:flex;background:#fff;border-radius:999px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:640px;margin:0 auto}
+  .searchbar input{flex:1;border:0;outline:0;font-size:1rem;padding:12px 20px;border-radius:999px;color:var(--ink);min-width:0}
+  .searchbar button{border:0;background:var(--california-gold);color:var(--berkeley-blue);font-weight:700;font-size:1rem;padding:12px 28px;border-radius:999px;cursor:pointer}
+  .searchbar button:hover{background:#ffc63f}
+  .quick-filters{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+  .quick-filters .qf-label{width:100%;font-size:.85rem;text-transform:uppercase;letter-spacing:1.5px;opacity:.75;margin-bottom:2px}
+  .chip{border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:8px 18px;font-size:.92rem;cursor:pointer;transition:all .15s}
+  .chip:hover{background:rgba(255,255,255,.2)}
+  .chip[aria-pressed="true"]{background:var(--california-gold);border-color:var(--california-gold);color:var(--berkeley-blue);font-weight:700}
+
+  /* ---------- Sections ---------- */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  section.block{padding:52px 0}
+  .section-title{font-size:1.6rem;margin:0 0 6px;color:var(--berkeley-blue);letter-spacing:-.3px}
+  .section-sub{color:var(--muted);margin:0 0 24px;max-width:720px}
+
+  /* Interest discovery */
+  .interests{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .interest-grid{display:flex;flex-wrap:wrap;gap:12px}
+  .interest{border:2px solid var(--line);background:#fff;border-radius:var(--radius);padding:14px 20px;font-size:1rem;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);transition:all .15s}
+  .interest .emoji{font-size:1.4rem}
+  .interest:hover{border-color:var(--berkeley-blue);transform:translateY(-2px)}
+  .interest[aria-pressed="true"]{border-color:var(--berkeley-blue);background:#eef4fb;box-shadow:0 0 0 2px var(--berkeley-blue) inset}
+
+  /* ---------- Browse layout ---------- */
+  .browse-layout{display:grid;grid-template-columns:250px 1fr;gap:28px;align-items:start}
+  @media(max-width:900px){.browse-layout{grid-template-columns:1fr}}
+  .filters{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:sticky;top:84px}
+  @media(max-width:900px){.filters{position:static}}
+  .filters h3{margin:0 0 4px;font-size:1.05rem;color:var(--berkeley-blue)}
+  .filter-group{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+  .filter-group legend,.filter-group .fg-title{font-weight:700;font-size:.88rem;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:8px}
+  .filter-group fieldset{border:0;margin:0;padding:0}
+  .f-check{display:flex;align-items:center;gap:9px;padding:5px 0;font-size:.94rem;cursor:pointer}
+  .f-check input{accent-color:var(--berkeley-blue);width:16px;height:16px;cursor:pointer}
+  .f-select{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;font-size:.94rem;background:#fff;cursor:pointer}
+  .clear-btn{margin-top:16px;width:100%;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:9px;font-size:.92rem;cursor:pointer;color:var(--muted)}
+  .clear-btn:hover{border-color:var(--berkeley-blue);color:var(--berkeley-blue)}
+
+  /* Results bar */
+  .results-bar{display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+  .results-count{font-weight:600;color:var(--berkeley-blue)}
+  .sort-wrap{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.92rem;color:var(--muted)}
+  .sort-wrap select{padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;font-size:.92rem;background:#fff;cursor:pointer}
+
+  /* Deadline legend */
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .legend button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:7px}
+  .legend button[aria-pressed="true"]{border-color:var(--berkeley-blue);background:#eef4fb;font-weight:700}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .dot.soon{background:var(--soon)}.dot.month{background:var(--month)}.dot.upcoming{background:var(--upcoming)}.dot.ongoing{background:var(--ongoing)}
+
+  /* Cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:10px;transition:transform .15s,box-shadow .15s;border-top:5px solid var(--ongoing)}
+  .card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(16,24,40,.12)}
+  .card.dl-soon{border-top-color:var(--soon)}
+  .card.dl-month{border-top-color:var(--month)}
+  .card.dl-upcoming{border-top-color:var(--upcoming)}
+  .card.dl-ongoing{border-top-color:var(--ongoing)}
+  .card.dl-closed{border-top-color:#9e9e9e;opacity:.75}
+  .card-eyebrow{font-size:.72rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--berkeley-blue)}
+  .card h3{margin:0;font-size:1.12rem;line-height:1.35}
+  .card-org{color:var(--muted);font-size:.92rem;font-style:italic}
+  .dl-badge{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:700;border-radius:8px;padding:6px 12px;width:fit-content}
+  .dl-badge.soon{background:var(--soon-bg);color:var(--soon)}
+  .dl-badge.month{background:var(--month-bg);color:var(--month)}
+  .dl-badge.upcoming{background:var(--upcoming-bg);color:var(--upcoming)}
+  .dl-badge.ongoing{background:var(--ongoing-bg);color:var(--ongoing)}
+  .dl-badge.closed{background:#e0e0e0;color:#424242}
+  .card-meta{font-size:.9rem;display:flex;flex-direction:column;gap:6px;color:#333}
+  .card-meta .row{display:flex;gap:8px;align-items:flex-start}
+  .card-meta .ico{flex:0 0 22px;text-align:center}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:.78rem;background:#eef2f7;color:var(--berkeley-blue);border-radius:999px;padding:3px 10px;font-weight:600}
+  .tag.type{background:var(--berkeley-blue);color:#fff}
+  .card-actions{margin-top:auto;display:flex;gap:10px;padding-top:6px;flex-wrap:wrap}
+  .btn{border:0;border-radius:9px;padding:10px 18px;font-size:.93rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
+  .btn-primary{background:var(--berkeley-blue);color:#fff}
+  .btn-primary:hover{background:var(--berkeley-blue-dark)}
+  .btn-gold{background:var(--california-gold);color:var(--berkeley-blue)}
+  .btn-gold:hover{background:#ffc63f}
+  .btn-outline{background:#fff;border:1.5px solid var(--berkeley-blue);color:var(--berkeley-blue)}
+  .btn-outline:hover{background:#eef4fb}
+  .btn-calendar{background:#eef4fb;border:1.5px solid #b8c9dc;color:var(--berkeley-blue)}
+  .btn-calendar:hover{background:#dfeaf6;border-color:var(--berkeley-blue)}
+  .card-actions .btn-calendar{flex-basis:100%}
+  .card .verified{font-size:.75rem;color:var(--muted);margin-top:2px}
+  .empty{background:#fff;border:1px dashed var(--line);border-radius:var(--radius);padding:48px 24px;text-align:center;color:var(--muted)}
+
+  /* About */
+  .about{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:20px}
+  .about-card{background:var(--bg);border-radius:var(--radius);padding:20px;border:1px solid var(--line)}
+  .about-card .big{font-size:1.8rem}
+  .about-card h4{margin:8px 0 6px;color:var(--berkeley-blue)}
+  .about-card p{margin:0;font-size:.93rem;color:#333}
+
+  /* Missing something */
+  .missing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .missing-card{background:var(--berkeley-blue);color:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+  .missing-card h3{margin:0 0 8px;font-size:1.2rem}
+  .missing-card p{opacity:.88;font-size:.95rem;margin:0 0 18px}
+
+  /* Footer */
+  footer{background:var(--berkeley-blue-dark);color:#dfe6ee;padding:40px 20px 28px;font-size:.9rem}
+  footer .wrap{display:flex;flex-direction:column;gap:14px}
+  footer a{color:var(--california-gold)}
+  .disclaimer{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 16px;font-size:.83rem;color:#c6d0dd}
+
+  /* Modal */
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+  .modal.open{display:flex}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,20,40,.55)}
+  .modal-panel{position:relative;background:#fff;border-radius:16px;max-width:720px;width:100%;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto}
+  .modal-close{position:absolute;top:14px;right:14px;border:0;background:var(--bg);width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:var(--muted)}
+  .modal-close:hover{background:var(--line)}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin:18px 0}
+  @media(max-width:560px){.detail-grid{grid-template-columns:1fr}}
+  .detail-item .k{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:3px}
+  .detail-item .v{font-size:.95rem}
+  .detail-section{margin-top:16px}
+  .detail-section h4{margin:0 0 6px;color:var(--berkeley-blue);font-size:1rem}
+  .detail-section p{margin:0;font-size:.95rem}
+  .modal-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .form-field{margin-bottom:14px}
+  .form-field label{display:block;font-weight:700;font-size:.88rem;margin-bottom:6px}
+  .form-field input,.form-field select,.form-field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:.95rem;font-family:inherit}
+  .form-field textarea{min-height:110px;resize:vertical}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--berkeley-blue);color:#fff;padding:14px 24px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:all .25s;z-index:200;max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-mark">🔬</span> Research Opportunity Hub</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#browse">Browse</a>
+      <a href="#discover">Discover</a>
+      <a href="#about">About</a>
+      <a href="#missing">Suggest</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>Find Research Opportunities at Berkeley</h1>
+      <p>Explore undergraduate research opportunities across Berkeley — programs, labs, fellowships, and funding — and find the ones that match your interests.</p>
+      <form class="searchbar" id="searchForm" role="search">
+        <input type="search" id="searchInput" placeholder="Search research opportunities…" aria-label="Search research opportunities">
+        <button type="submit">Search</button>
+      </form>
+      <div class="quick-filters" role="group" aria-label="Quick filters">
+        <span class="qf-label">Quick filters</span>
+        <button class="chip" data-qf="type" data-val="Faculty Lab" aria-pressed="false">Faculty Lab</button>
+        <button class="chip" data-qf="type" data-val="URAP" aria-pressed="false">URAP</button>
+        <button class="chip" data-qf="type" data-val="Fellowship" aria-pressed="false">Fellowship</button>
+        <button class="chip" data-qf="type" data-val="Summer Research" aria-pressed="false">Summer Research</button>
+        <button class="chip" data-qf="type" data-val="Research Program" aria-pressed="false">Research Program</button>
+        <button class="chip" data-qf="deadline" data-val="soon" aria-pressed="false">🔴 Due Soon</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSONALIZED DISCOVERY -->
+  <section class="block interests" id="discover">
+    <div class="wrap">
+      <h2 class="section-title">What are you interested in?</h2>
+      <p class="section-sub">Select one or more areas and instantly see relevant opportunities — no need to know which department runs what.</p>
+      <div class="interest-grid" id="interestGrid" role="group" aria-label="Research interest areas"></div>
+    </div>
+  </section>
+
+  <!-- BROWSE -->
+  <section class="block" id="browse">
+    <div class="wrap">
+      <h2 class="section-title">Browse Opportunities</h2>
+      <p class="section-sub">Every card shows what you need to decide in seconds: deadline, eligibility, majors, and where to apply.</p>
+      <div class="browse-layout">
+        <aside class="filters" aria-label="Filters">
+          <h3>Filters</h3>
+          <div class="filter-group">
+            <div class="fg-title">Deadline</div>
+            <fieldset id="fDeadline">
+              <label class="f-check"><input type="radio" name="dl" value="all" checked> All deadlines</label>
+              <label class="f-check"><input type="radio" name="dl" value="week"> Due this week</label>
+              <label class="f-check"><input type="radio" name="dl" value="month"> Due this month</label>
+              <label class="f-check"><input type="radio" name="dl" value="3months"> Next 3 months</label>
+              <label class="f-check"><input type="radio" name="dl" value="later"> Later</label>
+              <label class="f-check"><input type="radio" name="dl" value="rolling"> Rolling / ongoing</label>
+            </fieldset>
+          </div>
+          <div class="filter-group">
+            <div class="fg-title">Opportunity type</div>
+            <fieldset id="fType">
+              <label class="f-check"><input type="checkbox" value="Faculty Lab"> Faculty Lab</label>
+              <label class="f-check"><input type="checkbox" value="URAP"> URAP</label>
+              <label class="f-check"><input type="checkbox" value="Fellowship"> Fellowship</label>
+              <label class="f-check"><input type="checkbox" value="Summer Research"> Summer Research</label>
+              <label class="f-check"><input type="checkbox" value="Research Program"> Research Program</label>
+              <label class="f-check"><input type="checkbox" value="Research Funding"> Research Funding</label>
+              <label class="f-check"><input type="checkbox" value="Other"> Other</label>
+            </fieldset>
+          </div>
+          <div class="filter-group">
+            <label class="fg-title" for="fMajor">Major</label>
+            <select class="f-select" id="fMajor"><option value="">All majors</option></select>
+          </div>
+          <div class="filter-group">
+            <label class="fg-title" for="fArea">Research area</label>
+            <select class="f-select" id="fArea"><option value="">All areas</option></select>
+          </div>
+          <div class="filter-group">
+            <label class="fg-title" for="fDept">Department / school</label>
+            <select class="f-select" id="fDept"><option value="">All departments</option></select>
+          </div>
+          <button class="clear-btn" id="clearFilters">Clear all filters</button>
+        </aside>
+
+        <div class="results">
+          <div class="legend" role="group" aria-label="Deadline urgency legend">
+            <button data-legend="soon" aria-pressed="false"><span class="dot soon"></span>🔴 Due Soon</button>
+            <button data-legend="month" aria-pressed="false"><span class="dot month"></span>🟡 Due This Month</button>
+            <button data-legend="upcoming" aria-pressed="false"><span class="dot upcoming"></span>🟢 Upcoming</button>
+            <button data-legend="ongoing" aria-pressed="false"><span class="dot ongoing"></span>⚪ Ongoing</button>
+          </div>
+          <div class="results-bar">
+            <span class="results-count" id="resultsCount"></span>
+            <div class="sort-wrap">
+              <label for="sortSelect">Sort by:</label>
+              <select id="sortSelect">
+                <option value="deadline">Deadline</option>
+                <option value="recent">Recently added</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid" id="grid"></div>
+          <div class="empty" id="emptyState" hidden>
+            <h3>No opportunities match your filters</h3>
+            <p>Try broadening your search — or suggest one we missed below.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="block about" id="about">
+    <div class="wrap">
+      <h2 class="section-title">What this hub solves</h2>
+      <p class="section-sub">Berkeley doesn't lack research opportunities — it lacks a single place to discover them. This hub is a central discovery layer, not a replacement for official application pages.</p>
+      <div class="about-grid">
+        <div class="about-card"><div class="big">🔍</div><h4>Centralized discovery</h4><p>Opportunities from departments, programs, and labs — discoverable from one place, without knowing where to look.</p></div>
+        <div class="about-card"><div class="big">⏰</div><h4>Deadline-first design</h4><p>Urgency is visible at a glance so you find opportunities <em>before</em> the deadline, not after.</p></div>
+        <div class="about-card"><div class="big">⚡</div><h4>Decide in seconds</h4><p>Eligibility, majors, and deadlines are on the card — no need to open five tabs to know if it's for you.</p></div>
+        <div class="about-card"><div class="big">🔗</div><h4>Official sources only</h4><p>Every listing links to the original source. Apply there — this site just helps you find it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSING SOMETHING -->
+  <section class="block" id="missing">
+    <div class="wrap">
+      <h2 class="section-title">Missing something?</h2>
+      <p class="section-sub">Research opportunities change fast. Help keep this hub current.</p>
+      <div class="missing-grid">
+        <div class="missing-card">
+          <h3>Can't find an opportunity?</h3>
+          <p>Know a lab, program, or fellowship that isn't listed here? Send it our way.</p>
+          <button class="btn btn-gold" data-form="suggest">Suggest an Opportunity</button>
+        </div>
+        <div class="missing-card">
+          <h3>Is this information outdated?</h3>
+          <p>Spotted a wrong deadline, a broken link, or changed eligibility? Report it.</p>
+          <button class="btn btn-gold" data-form="report">Report an Update</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong>Research Opportunity Hub</strong> · UC Berkeley undergraduate research discovery</div>
+    <div class="disclaimer">
+      <strong>Demo dataset (v1).</strong> Listings and deadlines shown here are a representative sample for demonstration — always confirm details on the linked official page before applying. Each listing shows the date its information was last verified.
+    </div>
+    <div>Questions? Contact the hub maintainers. · Built as a discovery layer — applications happen on official program sites.</div>
+  </div>
+</footer>
+
+<!-- DETAIL MODAL -->
+<div class="modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel">
+    <button class="modal-close" data-close aria-label="Close">✕</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<!-- FORM MODAL -->
+<div class="modal" id="formModal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel">
+    <button class="modal-close" data-close aria-label="Close">✕</button>
+    <div id="formContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script>
+/* ==================== DATA ==================== */
+const OPPORTUNITIES = [
+  {
+    id: "power-lab-ra",
+    title: "Undergraduate Research Assistant — Power Transformation Lab",
+    org: "Power Transformation Lab",
+    type: "Faculty Lab",
+    deadline: "2026-10-03",
+    deadlineNote: "",
+    status: "open",
+    majors: ["Computer Science", "Engineering", "Data Science"],
+    area: "Energy Systems",
+    dept: "Energy & Resources Group",
+    eligibility: "Undergraduate students · Python or Julia proficiency",
+    level: "All undergraduate levels",
+    description: "The Power Transformation Lab is hiring multiple undergraduate research assistants for projects running October 2026 – June 2027, covering data extraction and visualization, statistical analysis, and independent research on macro energy systems.",
+    responsibilities: "Extract and scrape data from documents and websites; build data visualizations; perform basic statistical analysis; contribute to independent research projects.",
+    requirements: "Cover letter describing your interests and relevant experience; resume. Proficiency in Python or Julia required. GIS, database, or AI-tool experience is a plus.",
+    process: "Apply through the Handshake job posting (ID 11459763) and follow the instructions listed there.",
+    funding: "Paid hourly position — see Handshake posting for details",
+    location: "Berkeley, CA · In-person",
+    source: "https://app.joinhandshake.com/recruit/jobs/11459763/details",
+    sourceName: "Handshake job posting 11459763",
+    verified: "Oct 1, 2026",
+    added: 11,
+    keywords: "energy research assistant python julia data visualization handshake"
+  },
+  {
+    id: "cal-in-sacramento",
+    title: "Cal-in-Sacramento Fellowship",
+    org: "Matsui Center for Politics and Public Service",
+    type: "Fellowship",
+    deadline: "2026-10-04",
+    deadlineNote: "11:59 PM PT",
+    status: "open",
+    majors: ["Open to All Majors", "Social Sciences", "Public Health"],
+    area: "Public Policy",
+    dept: "Matsui Center",
+    eligibility: "UC Berkeley undergraduates passionate about public service",
+    level: "All undergraduate levels",
+    description: "One of UC's largest campus-based public service programs. Fellows take a 3-unit spring course on California policy and politics plus professional development and research training, then complete an eight-week summer internship in Sacramento — in Senate and Assembly offices, the Governor's Office, state agencies, think tanks, or nonprofits. 25–30 fellows selected each year.",
+    responsibilities: "Spring coursework and research training; full-time summer public-service internship with a Sacramento host office.",
+    requirements: "Online application; see program page for full requirements and eligibility details.",
+    process: "Apply via the Matsui Center's 2026–27 program application page before the deadline.",
+    funding: "Free shared housing in Sacramento + transportation and living stipend",
+    location: "Spring: Berkeley · Summer: Sacramento, CA",
+    source: "https://mailchi.mp/berkeley.edu/2026-2027-matsui-center-undergraduate-programs-2",
+    sourceName: "Matsui Center program announcement",
+    verified: "Oct 1, 2026",
+    added: 10,
+    keywords: "public service internship sacramento policy politics fellowship"
+  },
+  {
+    id: "urap-spring-2027",
+    title: "Undergraduate Research Apprentice Program (URAP) — Spring 2027",
+    org: "Office of Undergraduate Research & Scholarships (OURS)",
+    type: "URAP",
+    deadline: "2027-02-02",
+    deadlineNote: "Representative date — applications open for a two-week window after the first day of the spring semester",
+    status: "open",
+    majors: ["Open to All Majors"],
+    area: "Interdisciplinary",
+    dept: "Office of Undergraduate Research",
+    eligibility: "Matriculated UC Berkeley undergraduates",
+    level: "All undergraduate levels",
+    description: "Work directly with faculty and research staff on cutting-edge projects across every school and college at Berkeley. Apprentices deepen their knowledge in an area of special interest while experiencing life in a research community.",
+    responsibilities: "Varies by project — lab work, data analysis, fieldwork, literature review, participant recruitment, and more.",
+    requirements: "Online application via the URAP portal, including a statement of interest and research-relevant coursework.",
+    process: "Browse spring projects on the URAP portal when the application window opens; interview with mentors; file a Learning Contract if selected.",
+    funding: "Academic credit — 1 unit per 3 hours of research per week (up to 4 units/term)",
+    location: "Berkeley, CA · Varies by project",
+    source: "https://research.berkeley.edu/urap/application/",
+    sourceName: "URAP application page",
+    verified: "Oct 1, 2026",
+    added: 9,
+    keywords: "urap apprentice faculty mentor research credit"
+  },
+  {
+    id: "urap-fall-2026",
+    title: "Undergraduate Research Apprentice Program (URAP) — Fall 2026",
+    org: "Office of Undergraduate Research & Scholarships (OURS)",
+    type: "URAP",
+    deadline: "closed",
+    deadlineNote: "",
+    status: "closed",
+    majors: ["Open to All Majors"],
+    area: "Interdisciplinary",
+    dept: "Office of Undergraduate Research",
+    eligibility: "Matriculated UC Berkeley undergraduates",
+    level: "All undergraduate levels",
+    description: "The Fall 2026 URAP application window (including the extended application) has closed. Watch for the Spring 2027 cycle, which opens for a two-week window after the first day of the spring semester.",
+    responsibilities: "See the Spring 2027 listing for program details.",
+    requirements: "—",
+    process: "Applications are closed for this cycle.",
+    funding: "Academic credit — 1 unit per 3 hours of research per week (up to 4 units/term)",
+    location: "Berkeley, CA · Varies by project",
+    source: "https://research.berkeley.edu/urap/application/",
+    sourceName: "URAP application page",
+    verified: "Oct 1, 2026",
+    added: 1,
+    keywords: "urap apprentice closed"
+  },
+  {
+    id: "superb-2027",
+    title: "SUPERB 2027 — Summer Undergraduate Program in Engineering Research at Berkeley (AI4E)",
+    org: "Dept. of Electrical Engineering & Computer Sciences (EECS)",
+    type: "Summer Research",
+    deadline: "2027-01-25",
+    deadlineNote: "Representative date — based on the prior cycle's late-January deadline",
+    status: "open",
+    majors: ["Computer Science", "Engineering"],
+    area: "AI / Machine Learning",
+    dept: "EECS",
+    eligibility: "Undergraduates · juniors/seniors preferred · interest in AI for Engineering",
+    level: "Junior / Senior preferred",
+    description: "A 9-week summer REU site (June–August) focused on Artificial Intelligence for Engineering: machine learning algorithms, safety in human-robot interaction, provably-safe AI systems, adversarial robustness, and engineering design influenced by large language models.",
+    responsibilities: "Full-time summer research project with an EECS faculty mentor and graduate students; weekly presentations; lab tours; industry field trip; graduate-school advising.",
+    requirements: "Online application; personal statement demonstrating interest in the research theme.",
+    process: "Apply through the SUPERB program page; decisions typically announced in spring.",
+    funding: "Stipend + room and board at International House",
+    location: "Berkeley, CA · In-person, June–August",
+    source: "https://eecs.berkeley.edu/resources/undergrads/undergraduate-research/superb/",
+    sourceName: "SUPERB program page (EECS)",
+    verified: "Oct 1, 2026",
+    added: 8,
+    keywords: "superb reu summer engineering ai machine learning stipend housing"
+  },
+  {
+    id: "surf-2027",
+    title: "SURF L&S — Summer Undergraduate Research Fellowship 2027",
+    org: "College of Letters & Science / OURS",
+    type: "Fellowship",
+    deadline: "2027-03-14",
+    deadlineNote: "Representative date — based on the prior cycle's mid-March deadline",
+    status: "open",
+    majors: ["Open to All Majors", "Humanities", "Social Sciences", "Biology / Life Sciences", "Chemistry"],
+    area: "Interdisciplinary",
+    dept: "College of Letters & Science",
+    eligibility: "L&S undergraduates with junior/senior standing · 3.0+ GPA · faculty mentor required",
+    level: "Junior / Senior",
+    description: "Seven weeks of full-time, faculty-mentored summer research on an independent project of your own design — culminating in a senior thesis or other capstone project. Includes a research cluster community, workshops, and the SURF Conference in August.",
+    responsibilities: "Design and execute an original summer research project full-time for at least seven weeks; present at the SURF Conference.",
+    requirements: "Well-written research proposal; committed UC Berkeley faculty mentor; attend an application workshop or advising consultation before applying.",
+    process: "Submit the online application with proposal and mentor commitment; see the SURF page for the current cycle's instructions.",
+    funding: "$5,000 fellowship award",
+    location: "Berkeley, CA · Full-time summer",
+    source: "https://star.berkeley.edu/resources/summer-undergraduate-research-fellowship-surf",
+    sourceName: "SURF program listing (STAR Berkeley)",
+    verified: "Oct 1, 2026",
+    added: 7,
+    keywords: "surf fellowship summer independent research thesis capstone"
+  },
+  {
+    id: "haas-scholars-2627",
+    title: "Haas Scholars Program 2026–27",
+    org: "Office of Undergraduate Research & Scholarships (OURS)",
+    type: "Fellowship",
+    deadline: "2027-03-02",
+    deadlineNote: "Representative date — confirm on the official page",
+    status: "open",
+    majors: ["Open to All Majors", "Humanities", "Social Sciences", "Biology / Life Sciences", "Engineering"],
+    area: "Interdisciplinary",
+    dept: "Office of Undergraduate Research",
+    eligibility: "Seniors graduating Fall 2026 or Spring/Summer 2027 · 3.450+ GPA · eligible for need-based financial aid",
+    level: "Senior",
+    description: "A year-long funded senior capstone for 20 scholars selected across the humanities, STEM, and social sciences. Close mentoring from UC Berkeley faculty, interdisciplinary cohort seminars and workshops, and a professional conference presentation.",
+    responsibilities: "Carry out an original, feasible senior research or creative project (~10 hrs/week); participate in cohort events throughout the year.",
+    requirements: "Project proposal (research statement, background, plan, qualifications, bibliography, budget); faculty sponsor; professional reference.",
+    process: "Apply online when the application opens in early fall; applications are read by discipline-based selection committees.",
+    funding: "Up to $13,800 in financial support",
+    location: "Berkeley, CA · Academic year",
+    source: "http://research.berkeley.edu/haas-scholars/faq/",
+    sourceName: "Haas Scholars FAQ",
+    verified: "Oct 1, 2026",
+    added: 6,
+    keywords: "haas scholars senior capstone fellowship cohort funded"
+  },
+  {
+    id: "rose-hills-2027",
+    title: "Rose Hills Summer Program 2027",
+    org: "Office of Undergraduate Research & Scholarships (OURS)",
+    type: "Summer Research",
+    deadline: "2027-03-15",
+    deadlineNote: "Representative date — confirm on the official page",
+    status: "open",
+    majors: ["Biology / Life Sciences", "Chemistry", "Engineering"],
+    area: "Molecular Biology",
+    dept: "Office of Undergraduate Research",
+    eligibility: "Undergraduates in the sciences and engineering",
+    level: "All undergraduate levels",
+    description: "A summer research program supporting Berkeley undergraduates in the sciences and engineering who are pursuing faculty-mentored research projects over the summer.",
+    responsibilities: "Full-time summer research with a faculty mentor; program activities vary by year.",
+    requirements: "Online application; faculty mentor support recommended — see the program page for current requirements.",
+    process: "Apply via the Rose Hills program page during the application window.",
+    funding: "$5,000 summer award",
+    location: "Berkeley, CA · Full-time summer",
+    source: "https://research.berkeley.edu/rose-hills-program/",
+    sourceName: "Rose Hills program page",
+    verified: "Oct 1, 2026",
+    added: 5,
+    keywords: "rose hills summer sciences engineering funding"
+  },
+  {
+    id: "discovery-spring-2027",
+    title: "Data Science Discovery Program — Spring 2027",
+    org: "College of Computing, Data Science, and Society (CDSS)",
+    type: "Research Program",
+    deadline: null,
+    deadlineNote: "Applications posted before the start of each semester",
+    status: "open",
+    majors: ["Computer Science", "Data Science", "Open to All Majors"],
+    area: "Data Science",
+    dept: "CDSS",
+    eligibility: "UC Berkeley undergraduates · all majors welcome",
+    level: "All undergraduate levels",
+    description: "Semester-long, team-based data science projects with industry, government, nonprofit, and academic partners. Past projects include visualizing natural-disaster data with the SF Chronicle, predicting train delays with BART using ML, and NLP for personalized treatment plans with UCSF. 1,000+ projects over 10 years.",
+    responsibilities: "Work in a small student team on a partner-led project; weekly team meetings; end-of-semester showcase.",
+    requirements: "Online application on the CDSS Undergraduate Student Opportunities Application Hub; teams are matched by research interests.",
+    process: "Apply before the semester starts; project matching is done by program staff.",
+    funding: "Academic credit (student researcher roles are unpaid)",
+    location: "Berkeley, CA · Team-based",
+    source: "https://star.berkeley.edu/resources/data-science-discovery-program",
+    sourceName: "Discovery program listing (STAR Berkeley)",
+    verified: "Oct 1, 2026",
+    added: 4,
+    keywords: "discovery data science team project nlp machine learning"
+  },
+  {
+    id: "surd-2027",
+    title: "SURD 2027 — Summer Undergraduate Research Diversity Program (Chemistry)",
+    org: "College of Chemistry",
+    type: "Summer Research",
+    deadline: null,
+    deadlineNote: "Apply via the online application — check the page for review timing",
+    status: "open",
+    majors: ["Chemistry", "Biology / Life Sciences"],
+    area: "Chemistry",
+    dept: "College of Chemistry",
+    eligibility: "Undergraduates interested in chemistry research",
+    level: "All undergraduate levels",
+    description: "The College of Chemistry's summer undergraduate research program. Applications for the 2027 program are open through the online application on the program page.",
+    responsibilities: "Summer research in a College of Chemistry lab; program activities vary by year.",
+    requirements: "Online application — see the program page for current requirements.",
+    process: "Fill out the online application linked on the SURD program page.",
+    funding: "See official page for details",
+    location: "Berkeley, CA · Full-time summer",
+    source: "https://chemistry.berkeley.edu/dei/programs/surd",
+    sourceName: "SURD program page (College of Chemistry)",
+    verified: "Oct 1, 2026",
+    added: 3,
+    keywords: "surd chemistry summer diversity research"
+  },
+  {
+    id: "eecs-faculty-labs",
+    title: "EECS Faculty Labs — Undergraduate Research (EECS 199)",
+    org: "Dept. of Electrical Engineering & Computer Sciences (EECS)",
+    type: "Faculty Lab",
+    deadline: null,
+    deadlineNote: "Contact labs directly — many hire on a rolling basis",
+    status: "open",
+    majors: ["Computer Science", "Engineering"],
+    area: "AI / Machine Learning",
+    dept: "EECS",
+    eligibility: "EECS undergraduates · faculty supervisor approval required",
+    level: "All undergraduate levels",
+    description: "Independent research with EECS faculty — from AI, robotics, and systems to circuits and theory. Many labs (including BAIR-affiliated groups) take undergraduates during the academic year, typically via EECS 199 independent study or URAP.",
+    responsibilities: "Varies by lab — software development, experiments, data analysis, literature review, and research meetings.",
+    requirements: "Identify a faculty supervisor; major advisor approval; enroll in EECS 199 for units.",
+    process: "Browse faculty research areas, email professors with your resume and interests, or apply through URAP listings.",
+    funding: "Academic credit (EECS 199); some labs offer hourly pay",
+    location: "Berkeley, CA · Varies by lab",
+    source: "http://eecs.berkeley.edu/resources/undergrads/undergraduate-research/",
+    sourceName: "EECS undergraduate research page",
+    verified: "Oct 1, 2026",
+    added: 2,
+    keywords: "eecs faculty lab 199 bair ai robotics research assistant"
+  }
+];
+
+/* ==================== LOGIC ==================== */
+const AREA_EMOJI = {
+  "AI / Machine Learning": "🤖", "Data Science": "📊", "Molecular Biology": "🧬",
+  "Chemistry": "🧪", "Climate / Environment": "🌎", "Public Policy": "🏛️",
+  "Public Health": "🏥", "Energy Systems": "⚡", "Economics": "📈",
+  "Social Science": "🧠", "Humanities": "📚", "Interdisciplinary": "🔀",
+  "Neuroscience": "🧠", "Genetics": "🧬", "Psychology": "🧠"
+};
+const INTERESTS = [
+  {emoji:"💻", label:"Computer Science", match:["Computer Science"]},
+  {emoji:"🧬", label:"Biology", match:["Biology / Life Sciences","Molecular Biology"]},
+  {emoji:"🧠", label:"Psychology", match:["Psychology","Neuroscience"]},
+  {emoji:"🌎", label:"Environment", match:["Climate / Environment","Energy Systems"]},
+  {emoji:"🤖", label:"AI", match:["AI / Machine Learning"]},
+  {emoji:"🏥", label:"Healthcare", match:["Public Health"]},
+  {emoji:"📊", label:"Data Science", match:["Data Science"]}
+];
+const MAJORS = ["Biology / Life Sciences","Chemistry","Computer Science","Data Science","Engineering","Psychology","Public Health","Social Sciences","Humanities","Interdisciplinary","Open to All Majors"];
+const AREAS = ["AI / Machine Learning","Data Science","Molecular Biology","Chemistry","Climate / Environment","Energy Systems","Public Policy","Public Health","Economics","Social Science","Humanities","Interdisciplinary","Neuroscience","Genetics"];
+const DEPTS = ["EECS","College of Chemistry","CDSS","Office of Undergraduate Research","College of Letters & Science","Matsui Center","Energy & Resources Group"];
+
+const state = { q:"", dl:"all", types:new Set(), major:"", area:"", dept:"", interests:new Set(), sort:"deadline", legend:null };
+
+function todayMidnight(){ const d=new Date(); d.setHours(0,0,0,0); return d; }
+function parseDeadline(s){ if(!s || s==="closed") return null; const d=new Date(s+"T00:00:00"); return isNaN(d)?null:d; }
+function hasCalendarDeadline(o){
+  const d=parseDeadline(o.deadline);
+  return o.status!=="closed" && d!==null && d>=todayMidnight();
+}
+function calendarDate(d){
+  return String(d.getFullYear())+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0");
+}
+function calendarURL(o){
+  if(!hasCalendarDeadline(o)) return "";
+  const start=parseDeadline(o.deadline);
+  const end=new Date(start); end.setDate(end.getDate()+1);
+  const lines=[];
+  if((o.deadlineNote||"").includes("Representative")) lines.push("⚠️ Demo date — verify the real deadline on the official page before relying on this.");
+  lines.push(o.description||"");
+  lines.push(o.deadlineNote||"");
+  lines.push("Official page: "+o.source);
+  lines.push("From the Research Opportunity Hub prototype (demo dataset v1)");
+  const title=o.title+" — application deadline";
+  const dates=calendarDate(start)+"/"+calendarDate(end);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(title)+"&dates="+encodeURIComponent(dates)+"&details="+encodeURIComponent(lines.join("\n"));
+}
+function calendarButtonHTML(o){
+  if(!hasCalendarDeadline(o)) return "";
+  return `<a class="btn btn-calendar" href="${esc(calendarURL(o))}" target="_blank" rel="noopener">Add to Google Calendar</a>`;
+}
+function deadlineInfo(o){
+  if(o.status==="closed" || o.deadline==="closed") return {key:"closed", label:"Closed", cls:"closed", card:"dl-closed", days:null};
+  const d = parseDeadline(o.deadline);
+  if(!d) return {key:"ongoing", label:"Rolling", sub:o.deadlineNote||"No fixed deadline", cls:"ongoing", card:"dl-ongoing", days:null};
+  const diff = Math.round((d - todayMidnight())/86400000);
+  if(diff < 0) return {key:"closed", label:"Closed", cls:"closed", card:"dl-closed", days:null};
+  const dateStr = d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+  if(diff <= 14) return {key:"soon", label:"Due "+dateStr, sub: diff===0?"Due today":diff===1?"1 day left":diff+" days left", cls:"soon", card:"dl-soon", days:diff};
+  const t = todayMidnight();
+  if(d.getMonth()===t.getMonth() && d.getFullYear()===t.getFullYear())
+    return {key:"month", label:"Due "+dateStr, sub:diff+" days left", cls:"month", card:"dl-month", days:diff};
+  return {key:"upcoming", label:"Due "+dateStr, sub:diff+" days left", cls:"upcoming", card:"dl-upcoming", days:diff};
+}
+function matchesDeadlineFilter(o){
+  const info = deadlineInfo(o);
+  switch(state.dl){
+    case "all": return true;
+    case "week": return info.days!==null && info.days<=7;
+    case "month": { const d=parseDeadline(o.deadline); if(!d) return false; const t=todayMidnight(); return d>=t && d.getMonth()===t.getMonth() && d.getFullYear()===t.getFullYear(); }
+    case "3months": return info.days!==null && info.days<=92;
+    case "later": return info.days!==null && info.days>92;
+    case "rolling": return info.key==="ongoing";
+    default: return true;
+  }
+}
+function filtered(){
+  let list = OPPORTUNITIES.filter(o=>{
+    if(!matchesDeadlineFilter(o)) return false;
+    if(state.types.size && !state.types.has(o.type)) return false;
+    if(state.major && !o.majors.includes(state.major)) return false;
+    if(state.area && o.area!==state.area) return false;
+    if(state.dept && o.dept!==state.dept) return false;
+    if(state.legend && deadlineInfo(o).key!==state.legend) return false;
+    if(state.interests.size){
+      const okAreas = new Set();
+      state.interests.forEach(i=>INTERESTS[i].match.forEach(m=>okAreas.add(m)));
+      const hit = o.majors.some(m=>okAreas.has(m)) || okAreas.has(o.area);
+      if(!hit) return false;
+    }
+    if(state.q){
+      const hay = (o.title+" "+o.org+" "+o.area+" "+o.dept+" "+o.majors.join(" ")+" "+o.type+" "+o.description+" "+(o.keywords||"")).toLowerCase();
+      if(!hay.includes(state.q)) return false;
+    }
+    return true;
+  });
+  if(state.sort==="deadline"){
+    const rank = k=>({soon:0,month:1,upcoming:2,ongoing:3,closed:4}[k]);
+    list.sort((a,b)=>{
+      const ia=deadlineInfo(a), ib=deadlineInfo(b);
+      if(rank(ia.key)!==rank(ib.key)) return rank(ia.key)-rank(ib.key);
+      return (ia.days??99999)-(ib.days??99999);
+    });
+  } else {
+    list.sort((a,b)=>b.added-a.added);
+  }
+  return list;
+}
+function esc(s){ return String(s??"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function cardHTML(o){
+  const info = deadlineInfo(o);
+  const emoji = AREA_EMOJI[o.area]||"🔬";
+  return `<article class="card ${info.card}">
+    <div class="card-eyebrow">${esc(o.type)}</div>
+    <h3>${esc(o.title)}</h3>
+    <div class="card-org">${esc(o.org)}</div>
+    <div><span class="dl-badge ${info.cls}">${info.key==="soon"?"🔴":info.key==="month"?"🟡":info.key==="upcoming"?"🟢":info.key==="ongoing"?"⚪":"⚫"} ${esc(info.label)}${info.sub?` · ${esc(info.sub)}`:""}</span></div>
+    <div class="card-meta">
+      <div class="row"><span class="ico">${emoji}</span><span><strong>Research area:</strong> ${esc(o.area)}</span></div>
+      <div class="row"><span class="ico">🎓</span><span><strong>Majors:</strong> ${esc(o.majors.join(" · "))}</span></div>
+      <div class="row"><span class="ico">🏫</span><span><strong>Host:</strong> ${esc(o.dept)}</span></div>
+      <div class="row"><span class="ico">✅</span><span><strong>Eligibility:</strong> ${esc(o.eligibility)}</span></div>
+    </div>
+    <div class="tag-row"><span class="tag type">${esc(o.type)}</span><span class="tag">${esc(o.area)}</span></div>
+    <div class="card-actions">
+      <button class="btn btn-outline" data-detail="${o.id}">View Details</button>
+      <a class="btn btn-primary" href="${esc(o.source)}" target="_blank" rel="noopener">Apply →</a>
+      ${calendarButtonHTML(o)}
+    </div>
+    <div class="verified">Last verified: ${esc(o.verified)}${o.deadlineNote?` · <em>${esc(o.deadlineNote)}</em>`:""}</div>
+  </article>`;
+}
+function render(){
+  const list = filtered();
+  const grid = document.getElementById("grid");
+  grid.innerHTML = list.map(cardHTML).join("");
+  document.getElementById("emptyState").hidden = list.length>0;
+  document.getElementById("resultsCount").textContent = list.length+" opportunit"+(list.length===1?"y":"ies")+" found";
+  grid.querySelectorAll("[data-detail]").forEach(b=>b.addEventListener("click",()=>openDetail(b.dataset.detail)));
+}
+function detailHTML(o){
+  const info = deadlineInfo(o);
+  const sec = (t,v)=> v&&v!=="—" ? `<div class="detail-section"><h4>${t}</h4><p>${esc(v)}</p></div>` : "";
+  return `
+    <div class="card-eyebrow">${esc(o.type)}</div>
+    <h2 id="detailTitle" style="margin:6px 0 4px;color:var(--berkeley-blue)">${esc(o.title)}</h2>
+    <div class="card-org" style="margin-bottom:10px">${esc(o.org)}</div>
+    <div><span class="dl-badge ${info.cls}">${info.key==="soon"?"🔴":info.key==="month"?"🟡":info.key==="upcoming"?"🟢":info.key==="ongoing"?"⚪":"⚫"} ${esc(info.label)}${info.sub?` · ${esc(info.sub)}`:""}</span></div>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="k">Research Area</div><div class="v">${esc(o.area)}</div></div>
+      <div class="detail-item"><div class="k">Host Department</div><div class="v">${esc(o.dept)}</div></div>
+      <div class="detail-item"><div class="k">Related Majors</div><div class="v">${esc(o.majors.join(", "))}</div></div>
+      <div class="detail-item"><div class="k">Eligibility</div><div class="v">${esc(o.eligibility)}</div></div>
+      <div class="detail-item"><div class="k">Student Level</div><div class="v">${esc(o.level)}</div></div>
+      <div class="detail-item"><div class="k">Location / Format</div><div class="v">${esc(o.location)}</div></div>
+      <div class="detail-item"><div class="k">Funding / Compensation</div><div class="v">${esc(o.funding)}</div></div>
+      <div class="detail-item"><div class="k">Last Verified</div><div class="v">${esc(o.verified)}</div></div>
+    </div>
+    ${sec("Description", o.description)}
+    ${sec("Research Responsibilities / Activities", o.responsibilities)}
+    ${sec("Application Requirements", o.requirements)}
+    ${sec("Application Process", o.process)}
+    <div class="modal-actions">
+      <a class="btn btn-gold" href="${esc(o.source)}" target="_blank" rel="noopener">Apply / Learn More →</a>
+      ${calendarButtonHTML(o)}
+      <span style="font-size:.85rem;color:var(--muted);align-self:center">Original source: <a href="${esc(o.source)}" target="_blank" rel="noopener">${esc(o.sourceName)}</a></span>
+    </div>`;
+}
+function openModal(id){ document.getElementById(id).classList.add("open"); document.body.style.overflow="hidden"; }
+function closeModals(){ document.querySelectorAll(".modal.open").forEach(m=>m.classList.remove("open")); document.body.style.overflow=""; }
+function openDetail(id){
+  const o = OPPORTUNITIES.find(x=>x.id===id); if(!o) return;
+  document.getElementById("detailContent").innerHTML = detailHTML(o);
+  openModal("detailModal");
+}
+function toast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 3200);
+}
+
+/* ---- forms ---- */
+function openForm(kind){
+  const isSuggest = kind==="suggest";
+  document.getElementById("formContent").innerHTML = `
+    <h2 id="formTitle" style="margin:0 0 6px;color:var(--berkeley-blue)">${isSuggest?"Suggest an Opportunity":"Report an Update"}</h2>
+    <p style="color:var(--muted);font-size:.93rem;margin:0 0 18px">${isSuggest?"Tell us about a research opportunity we should list.":"Tell us what's wrong so we can fix it."}</p>
+    <form id="hubForm">
+      ${isSuggest?`
+      <div class="form-field"><label for="ff-name">Opportunity name *</label><input id="ff-name" required placeholder="e.g. MCB Undergraduate Research — Smith Lab"></div>
+      <div class="form-field"><label for="ff-org">Host lab / program / department *</label><input id="ff-org" required placeholder="e.g. Department of Molecular & Cell Biology"></div>
+      <div class="form-field"><label for="ff-link">Link to official page *</label><input id="ff-link" type="url" required placeholder="https://…"></div>
+      <div class="form-field"><label for="ff-dl">Application deadline (if known)</label><input id="ff-dl" placeholder="e.g. March 1, 2027 or Rolling"></div>
+      <div class="form-field"><label for="ff-notes">Anything else we should know?</label><textarea id="ff-notes" placeholder="Eligibility, majors, research area…"></textarea></div>`
+      :`
+      <div class="form-field"><label for="ff-which">Which listing is outdated? *</label>
+        <select id="ff-which" required><option value="">Select an opportunity…</option>${OPPORTUNITIES.map(o=>`<option>${esc(o.title)}</option>`).join("")}<option>Another listing</option></select></div>
+      <div class="form-field"><label for="ff-issue">What needs updating? *</label><textarea id="ff-issue" required placeholder="e.g. The deadline is now March 10, not March 14."></textarea></div>
+      <div class="form-field"><label for="ff-link2">Correct link (if any)</label><input id="ff-link2" type="url" placeholder="https://…"></div>`}
+      <div class="form-field"><label for="ff-email">Your email (optional)</label><input id="ff-email" type="email" placeholder="you@berkeley.edu"></div>
+      <div class="modal-actions"><button class="btn btn-primary" type="submit">Submit</button></div>
+    </form>`;
+  openModal("formModal");
+  document.getElementById("hubForm").addEventListener("submit", e=>{
+    e.preventDefault(); closeModals();
+    toast(isSuggest ? "Thanks! Your suggestion has been recorded for review." : "Thanks! We'll review the update shortly.");
+  });
+}
+
+/* ---- init ---- */
+function fillSelect(id, items){
+  const s=document.getElementById(id);
+  items.forEach(v=>{ const o=document.createElement("option"); o.value=v; o.textContent=v; s.appendChild(o); });
+}
+document.addEventListener("DOMContentLoaded", ()=>{
+  fillSelect("fMajor", MAJORS); fillSelect("fArea", AREAS); fillSelect("fDept", DEPTS);
+
+  const ig=document.getElementById("interestGrid");
+  INTERESTS.forEach((it,i)=>{
+    const b=document.createElement("button");
+    b.className="interest"; b.setAttribute("aria-pressed","false");
+    b.innerHTML=`<span class="emoji">${it.emoji}</span>${esc(it.label)}`;
+    b.addEventListener("click",()=>{
+      const on = state.interests.has(i);
+      on ? state.interests.delete(i) : state.interests.add(i);
+      b.setAttribute("aria-pressed", String(!on));
+      render();
+      if(!on) document.getElementById("browse").scrollIntoView({behavior:"smooth"});
+    });
+    ig.appendChild(b);
+  });
+
+  document.querySelectorAll(".chip[data-qf]").forEach(c=>c.addEventListener("click",()=>{
+    const qf=c.dataset.qf, val=c.dataset.val;
+    const on = c.getAttribute("aria-pressed")==="true";
+    c.setAttribute("aria-pressed", String(!on));
+    if(qf==="type"){ on ? state.types.delete(val) : state.types.add(val); syncTypeBoxes(); }
+    if(qf==="deadline"){ state.legend = on?null:(val==="soon"?"soon":null); syncLegend(); }
+    render();
+  }));
+
+  document.querySelectorAll('input[name="dl"]').forEach(r=>r.addEventListener("change",()=>{ state.dl=r.value; render(); }));
+  document.querySelectorAll("#fType input").forEach(cb=>cb.addEventListener("change",()=>{
+    cb.checked ? state.types.add(cb.value) : state.types.delete(cb.value); syncChips(); render();
+  }));
+  document.getElementById("fMajor").addEventListener("change",e=>{ state.major=e.target.value; render(); });
+  document.getElementById("fArea").addEventListener("change",e=>{ state.area=e.target.value; render(); });
+  document.getElementById("fDept").addEventListener("change",e=>{ state.dept=e.target.value; render(); });
+  document.getElementById("sortSelect").addEventListener("change",e=>{ state.sort=e.target.value; render(); });
+
+  document.querySelectorAll(".legend button").forEach(b=>b.addEventListener("click",()=>{
+    const v=b.dataset.legend;
+    state.legend = state.legend===v?null:v;
+    syncLegend(); render();
+  }));
+
+  document.getElementById("searchForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    state.q=document.getElementById("searchInput").value.trim().toLowerCase();
+    render();
+    document.getElementById("browse").scrollIntoView({behavior:"smooth"});
+  });
+  document.getElementById("searchInput").addEventListener("input",e=>{
+    state.q=e.target.value.trim().toLowerCase(); render();
+  });
+
+  document.getElementById("clearFilters").addEventListener("click",()=>{
+    state.q=""; state.dl="all"; state.types.clear(); state.major=""; state.area=""; state.dept=""; state.interests.clear(); state.legend=null;
+    document.getElementById("searchInput").value="";
+    document.querySelector('input[name="dl"][value="all"]').checked=true;
+    document.querySelectorAll("#fType input").forEach(cb=>cb.checked=false);
+    document.getElementById("fMajor").value=""; document.getElementById("fArea").value=""; document.getElementById("fDept").value="";
+    document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));
+    document.querySelectorAll(".interest").forEach(b=>b.setAttribute("aria-pressed","false"));
+    syncLegend(); render();
+  });
+
+  document.querySelectorAll("[data-form]").forEach(b=>b.addEventListener("click",()=>openForm(b.dataset.form)));
+  document.querySelectorAll("[data-close]").forEach(el=>el.addEventListener("click",closeModals));
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModals(); });
+
+  render();
+});
+function syncTypeBoxes(){
+  document.querySelectorAll("#fType input").forEach(cb=>cb.checked=state.types.has(cb.value));
+}
+function syncChips(){
+  document.querySelectorAll('.chip[data-qf="type"]').forEach(c=>c.setAttribute("aria-pressed",String(state.types.has(c.dataset.val))));
+}
+function syncLegend(){
+  document.querySelectorAll(".legend button").forEach(b=>b.setAttribute("aria-pressed",String(state.legend===b.dataset.legend)));
+  const qc=document.querySelector('.chip[data-qf="deadline"]');
+  if(qc) qc.setAttribute("aria-pressed",String(state.legend==="soon"));
+}
+</script>
+</body>
+</html>
