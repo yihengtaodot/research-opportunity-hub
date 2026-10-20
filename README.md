@@ -2,7 +2,7 @@
 
 A central discovery platform for UC Berkeley undergraduate research opportunities — URAP, SURF, SUPERB, Haas Scholars, Rose Hills, fellowships, faculty labs, and more.
 
-**Live demo:** https://muse.ai/s/research-opportunity-hub-xfv6ixn6xrxy7xpxj
+**Live demo:** https://yihengtaodot.github.io/research-opportunity-hub/ (public — no login required)
 
 ## Why this exists
 
