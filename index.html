@@ -842,11 +842,37 @@ function openForm(kind){
       <div class="form-field"><label for="ff-link2">Correct link (if any)</label><input id="ff-link2" type="url" placeholder="https://…"></div>`}
       <div class="form-field"><label for="ff-email">Your email (optional)</label><input id="ff-email" type="email" placeholder="you@berkeley.edu"></div>
       <div class="modal-actions"><button class="btn btn-primary" type="submit">Submit</button></div>
+      <p style="color:var(--muted);font-size:.82rem;margin:12px 0 0">Submitting opens a pre-filled GitHub issue in our repo — you review and confirm it there. Nothing is sent from this page directly.</p>
     </form>`;
   openModal("formModal");
   document.getElementById("hubForm").addEventListener("submit", e=>{
-    e.preventDefault(); closeModals();
-    toast(isSuggest ? "Thanks! Your suggestion has been recorded for review." : "Thanks! We'll review the update shortly.");
+    e.preventDefault();
+    const v = id => (document.getElementById(id)?.value || "").trim();
+    let title, lines;
+    if(isSuggest){
+      title = "[Suggestion] " + v("ff-name");
+      lines = [
+        "**Opportunity name:** " + v("ff-name"),
+        "**Host lab / program / department:** " + v("ff-org"),
+        "**Official page:** " + v("ff-link"),
+        "**Application deadline:** " + (v("ff-dl") || "—"),
+        "**Notes:** " + (v("ff-notes") || "—"),
+        v("ff-email") ? "**Submitted by:** " + v("ff-email") : ""
+      ];
+    } else {
+      title = "[Update] " + v("ff-which");
+      lines = [
+        "**Listing:** " + v("ff-which"),
+        "**What needs updating:** " + v("ff-issue"),
+        "**Correct link:** " + (v("ff-link2") || "—"),
+        v("ff-email") ? "**Reported by:** " + v("ff-email") : ""
+      ];
+    }
+    const body = lines.filter(Boolean).join("\n") + "\n\n---\nSubmitted via the Research Opportunity Hub form.";
+    const url = "https://github.com/yihengtaodot/research-opportunity-hub/issues/new?title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
+    window.open(url, "_blank", "noopener");
+    closeModals();
+    toast("Opening GitHub to finish your submission — review it there and click Submit new issue.");
   });
 }
 

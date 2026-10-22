@@ -36,6 +36,7 @@ One click on any listing with a future deadline opens a **pre-filled Google Cale
 ### Community upkeep
 - **Suggest an Opportunity** — submit a listing that's missing
 - **Report an Update** — flag outdated information
+- Submissions open a pre-filled **GitHub issue** in this repo, so they land where maintainers can review and act on them (no silent black hole)
 - Every listing shows its **last-verified date**
 
 ## Project structure
