@@ -59,9 +59,9 @@ Open `index.html` in any browser — no build step, no dependencies, works offli
 
 ## Data
 
-The page ships with a demo dataset of 11 Berkeley research opportunities. `data/opportunities.json` is the same dataset, exported for reference and for future backend work; `index.html` is the source of truth for the demo. Each entry carries: title, organization, type, deadline, eligibility, related majors, research area, department, description, responsibilities, requirements, application process, funding, location, source link, and verification date.
+The page ships with a dataset of 18 Berkeley research opportunities. `data/opportunities.json` is the same dataset, exported for reference and for future backend work; `index.html` is the source of truth for the demo. Each entry carries: title, organization, type, deadline, eligibility, related majors, research area, department, description, responsibilities, requirements, application process, funding, location, source link, and verification date.
 
-> **Data honesty notice — demo dataset v1.** Only 2 of the 11 listing deadlines are real/verified; the rest are representative dates carried over from the prototype. Always confirm details on the linked official page before applying.
+> **Data honesty notice.** The 7 listings added in October 2026 were checked against official program pages, and several of their deadlines are confirmed postings (e.g. DOE SULI — Jan 6, 2027; IGS Percy Grant — Nov 29, 2026). Several of the original prototype listings still carry representative dates rather than verified ones. Always confirm details on the linked official page before applying.
 
 ## Tech
 
