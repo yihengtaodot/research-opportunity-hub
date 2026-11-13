@@ -20,7 +20,7 @@ Design principle: a student should be able to tell whether an opportunity is rel
 ### Visual deadline system
 Deadlines are the most prominent element on every card, color-coded by urgency:
 
-🔴 Due soon · 🟡 Due this month · 🟢 Upcoming · ⚪ Rolling / ongoing · ⬜ Closed
+🔴 Due soon · 🟠 Due this month · 🟢 Upcoming · ⚪ Rolling / ongoing · ⬜ Closed
 
 Results sort by urgency first, so the nearest deadlines always surface at the top.
 
@@ -31,12 +31,12 @@ Each card shows everything needed to decide in seconds — no click required: op
 Clicking a card opens a standardized detail modal: description, research responsibilities, application requirements and process, funding/compensation, location/format, eligibility, the official source link, and the last-verified date.
 
 ### Add to Google Calendar
-One click on any listing with a future deadline opens a **pre-filled Google Calendar all-day event** (title, description, official source link). No login or API key needed. Events created from representative demo dates carry a *"verify on the official page first"* warning.
+One click on any listing with a future deadline opens a **pre-filled Google Calendar all-day event** (title, description, official source link). No login or API key needed. Listings whose deadline is a representative (prior-cycle) date are labelled **"(est.)"** on the card, and their calendar events carry a *"verify on the official page first"* warning.
 
 ### Community upkeep
 - **Suggest an Opportunity** — submit a listing that's missing
 - **Report an Update** — flag outdated information
-- Submissions open a pre-filled **GitHub issue** in this repo, so they land where maintainers can review and act on them (no silent black hole)
+- Submissions open a pre-filled **GitHub issue** in this repo (a free GitHub account is needed to post), so they land where maintainers can review and act on them (no silent black hole). Forms deliberately collect no email address — issues in this public repo are visible to everyone
 - Every listing shows its **last-verified date**
 
 ## Project structure

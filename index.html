@@ -40,7 +40,7 @@
   .site-nav{margin-left:auto;display:flex;gap:4px}
   .site-nav a{color:#fff;text-decoration:none;padding:8px 14px;border-radius:8px;font-size:.92rem;opacity:.92}
   .site-nav a:hover{background:rgba(255,255,255,.12);opacity:1}
-  @media(max-width:720px){.site-nav{display:none}}
+  @media(max-width:720px){.site-nav{gap:0;overflow-x:auto}.site-nav a{padding:6px 8px;font-size:.85rem;white-space:nowrap}}
 
   /* ---------- Hero ---------- */
   .hero{background:linear-gradient(135deg,var(--berkeley-blue) 0%,#0a4a86 60%,#0e5aa8 100%);color:#fff;padding:64px 20px 56px;position:relative;overflow:hidden}
@@ -179,6 +179,10 @@
   .form-field textarea{min-height:110px;resize:vertical}
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--berkeley-blue);color:#fff;padding:14px 24px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:all .25s;z-index:200;max-width:90vw;text-align:center}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  section[id]{scroll-margin-top:76px}
+  .dot.closed{background:#424242}
+  .filters-toggle{display:none}
+  @media(max-width:900px){.filters-toggle{display:block;width:100%;padding:11px;border:1.5px solid var(--berkeley-blue);background:#fff;color:var(--berkeley-blue);border-radius:9px;font-weight:700;font-size:.95rem;cursor:pointer;margin-bottom:14px}.filters{display:none}.filters.open{display:block}}
 </style>
 </head>
 <body>
@@ -232,7 +236,8 @@
       <h2 class="section-title">Browse Opportunities</h2>
       <p class="section-sub">Every card shows what you need to decide in seconds: deadline, eligibility, majors, and where to apply.</p>
       <div class="browse-layout">
-        <aside class="filters" aria-label="Filters">
+        <button class="filters-toggle" id="filtersToggle" aria-expanded="false" aria-controls="filtersPanel">Show filters ▾</button>
+        <aside class="filters" id="filtersPanel" aria-label="Filters">
           <h3>Filters</h3>
           <div class="filter-group">
             <div class="fg-title">Deadline</div>
@@ -272,15 +277,16 @@
           <button class="clear-btn" id="clearFilters">Clear all filters</button>
         </aside>
 
-        <div class="results">
+        <div class="results" id="results">
           <div class="legend" role="group" aria-label="Deadline urgency legend">
             <button data-legend="soon" aria-pressed="false"><span class="dot soon"></span>🔴 Due Soon</button>
-            <button data-legend="month" aria-pressed="false"><span class="dot month"></span>🟡 Due This Month</button>
+            <button data-legend="month" aria-pressed="false"><span class="dot month"></span>🟠 Due This Month</button>
             <button data-legend="upcoming" aria-pressed="false"><span class="dot upcoming"></span>🟢 Upcoming</button>
             <button data-legend="ongoing" aria-pressed="false"><span class="dot ongoing"></span>⚪ Ongoing</button>
+            <button data-legend="closed" aria-pressed="false"><span class="dot closed"></span>⚫ Closed</button>
           </div>
           <div class="results-bar">
-            <span class="results-count" id="resultsCount"></span>
+            <span class="results-count" id="resultsCount" aria-live="polite"></span>
             <div class="sort-wrap">
               <label for="sortSelect">Sort by:</label>
               <select id="sortSelect">
@@ -385,8 +391,8 @@ const OPPORTUNITIES = [
     process: "Apply through the Handshake job posting (ID 11459763) and follow the instructions listed there.",
     funding: "Paid hourly position — see Handshake posting for details",
     location: "Berkeley, CA · In-person",
-    source: "https://app.joinhandshake.com/recruit/jobs/11459763/details",
-    sourceName: "Handshake job posting 11459763",
+    source: "https://pwrlab.org/news.html",
+    sourceName: "Power Transformation Lab — news & opportunities",
     verified: "Oct 1, 2026",
     added: 11,
     keywords: "energy research assistant python julia data visualization handshake"
@@ -410,8 +416,8 @@ const OPPORTUNITIES = [
     process: "Apply via the Matsui Center's 2026–27 program application page before the deadline.",
     funding: "Free shared housing in Sacramento + transportation and living stipend",
     location: "Spring: Berkeley · Summer: Sacramento, CA",
-    source: "https://mailchi.mp/berkeley.edu/2026-2027-matsui-center-undergraduate-programs-2",
-    sourceName: "Matsui Center program announcement",
+    source: "https://igs.berkeley.edu/matsui-center/programs-fellowships/cal-sacramento-fellowship",
+    sourceName: "IGS — Cal-in-Sacramento Fellowship",
     verified: "Oct 1, 2026",
     added: 10,
     keywords: "public service internship sacramento policy politics fellowship"
@@ -422,7 +428,7 @@ const OPPORTUNITIES = [
     org: "Office of Undergraduate Research & Scholarships (OURS)",
     type: "URAP",
     deadline: "2027-02-02",
-    deadlineNote: "Representative date — applications open for a two-week window after the first day of the spring semester",
+    deadlineEstimated: true, deadlineNote: "Representative date — applications open for a two-week window after the first day of the spring semester",
     status: "open",
     majors: ["Open to All Majors"],
     area: "Interdisciplinary",
@@ -472,7 +478,7 @@ const OPPORTUNITIES = [
     org: "Dept. of Electrical Engineering & Computer Sciences (EECS)",
     type: "Summer Research",
     deadline: "2027-01-25",
-    deadlineNote: "Representative date — based on the prior cycle's late-January deadline",
+    deadlineEstimated: true, deadlineNote: "Representative date — based on the prior cycle's late-January deadline",
     status: "open",
     majors: ["Computer Science", "Engineering"],
     area: "AI / Machine Learning",
@@ -497,7 +503,7 @@ const OPPORTUNITIES = [
     org: "College of Letters & Science / OURS",
     type: "Fellowship",
     deadline: "2027-03-14",
-    deadlineNote: "Representative date — based on the prior cycle's mid-March deadline",
+    deadlineEstimated: true, deadlineNote: "Representative date — based on the prior cycle's mid-March deadline",
     status: "open",
     majors: ["Open to All Majors", "Humanities", "Social Sciences", "Biology / Life Sciences", "Chemistry"],
     area: "Interdisciplinary",
@@ -522,7 +528,7 @@ const OPPORTUNITIES = [
     org: "Office of Undergraduate Research & Scholarships (OURS)",
     type: "Fellowship",
     deadline: "2027-03-02",
-    deadlineNote: "Representative date — confirm on the official page",
+    deadlineEstimated: true, deadlineNote: "Representative date — confirm on the official page",
     status: "open",
     majors: ["Open to All Majors", "Humanities", "Social Sciences", "Biology / Life Sciences", "Engineering"],
     area: "Interdisciplinary",
@@ -535,7 +541,7 @@ const OPPORTUNITIES = [
     process: "Apply online when the application opens in early fall; applications are read by discipline-based selection committees.",
     funding: "Up to $13,800 in financial support",
     location: "Berkeley, CA · Academic year",
-    source: "http://research.berkeley.edu/haas-scholars/faq/",
+    source: "https://research.berkeley.edu/haas-scholars/faq/",
     sourceName: "Haas Scholars FAQ",
     verified: "Oct 1, 2026",
     added: 6,
@@ -547,10 +553,10 @@ const OPPORTUNITIES = [
     org: "Office of Undergraduate Research & Scholarships (OURS)",
     type: "Summer Research",
     deadline: "2027-03-15",
-    deadlineNote: "Representative date — confirm on the official page",
+    deadlineEstimated: true, deadlineNote: "Representative date — confirm on the official page",
     status: "open",
     majors: ["Biology / Life Sciences", "Chemistry", "Engineering"],
-    area: "Molecular Biology",
+    area: ["Molecular Biology", "Biology / Life Sciences"],
     dept: "Office of Undergraduate Research",
     eligibility: "Undergraduates in the sciences and engineering",
     level: "All undergraduate levels",
@@ -635,7 +641,7 @@ const OPPORTUNITIES = [
     process: "Browse faculty research areas, email professors with your resume and interests, or apply through URAP listings.",
     funding: "Academic credit (EECS 199); some labs offer hourly pay",
     location: "Berkeley, CA · Varies by lab",
-    source: "http://eecs.berkeley.edu/resources/undergrads/undergraduate-research/",
+    source: "https://eecs.berkeley.edu/resources/undergrads/undergraduate-research/",
     sourceName: "EECS undergraduate research page",
     verified: "Oct 1, 2026",
     added: 2,
@@ -700,7 +706,7 @@ const OPPORTUNITIES = [
     deadlineNote: "Amgen Scholars' common application deadline — the portal opens November 1, 2026; confirm Berkeley-specific details on the Amgen application portal",
     status: "open",
     majors: ["Biology / Life Sciences","Chemistry","Engineering","Data Science"],
-    area: "Biotechnology & Life Sciences",
+    area: ["Biotechnology", "Biology / Life Sciences"],
     dept: "UC Berkeley (Amgen Scholars Program)",
     eligibility: "Undergraduates enrolled in accredited four-year colleges or universities in the U.S. (any institution, not just Berkeley); GPA 3.2 or higher; sophomores, juniors, or non-graduating seniors; U.S. citizens or permanent residents; interest in pursuing a PhD or MD-PhD",
     level: "Sophomores, juniors, and non-graduating seniors",
@@ -750,7 +756,7 @@ const OPPORTUNITIES = [
     deadlineNote: "Applications opened Friday, September 4, 2026; no closing deadline is posted on the program page — the training cohort starts in February, so apply early",
     status: "open",
     majors: ["Biology / Life Sciences","Chemistry","Engineering"],
-    area: "Biotechnology",
+    area: ["Biotechnology", "Biology / Life Sciences"],
     dept: "QB3-Berkeley / Bakar Bio Labs",
     eligibility: "UC Berkeley students who aspire to work in labs but face financial constraints and/or a lack of experience; applicants should have responsibilities to support the financial costs of their education",
     level: "All undergraduate levels",
@@ -772,7 +778,7 @@ const OPPORTUNITIES = [
     org: "Berkeley Center for New Media (BCNM)",
     type: "Fellowship",
     deadline: "2027-03-01",
-    deadlineNote: "Representative date — annual March 1 deadline per the BCNM page; the undergraduate call opens by the start of spring semester, verify on the BCNM page",
+    deadlineEstimated: true, deadlineNote: "Representative date — annual March 1 deadline per the BCNM page; the undergraduate call opens by the start of spring semester, verify on the BCNM page",
     status: "open",
     majors: ["Interdisciplinary","Humanities","Social Sciences","Computer Science"],
     area: "New Media",
@@ -785,7 +791,7 @@ const OPPORTUNITIES = [
     process: "Watch for the undergraduate call on the BCNM page at the start of spring semester and apply by March 1.",
     funding: "$1,000 fellowship for approximately 50 hours of work; graduate student mentors receive $500",
     location: "Berkeley, CA",
-    source: "http://bcnm.berkeley.edu/resources/2851/undergraduate-research-fellowship",
+    source: "https://bcnm.berkeley.edu/resources/2851/undergraduate-research-fellowship",
     sourceName: "BCNM — Undergraduate Research Fellowship",
     verified: "Oct 22, 2026",
     added: 17,
@@ -800,8 +806,8 @@ const OPPORTUNITIES = [
     deadlineNote: "No single annual deadline is posted — membership admission runs through BSP and its research placements are for members; check the BSP apply page for the current window",
     status: "rolling",
     majors: ["Biology / Life Sciences"],
-    area: "Biology & Health Sciences",
-    dept: "Biological Sciences (Valley Life Sciences Building)",
+    area: ["Biology / Life Sciences", "Public Health"],
+    dept: "Biological Sciences",
     eligibility: "UC Berkeley undergraduates in the biological sciences — BSP has served 3,800+ students, primarily from low-income, first-generation, and minoritized backgrounds",
     level: "All undergraduate levels (biology-intended and declared)",
     description: "BSP is a long-running Berkeley community that helps biology undergraduates — especially low-income, first-in-family, and minoritized students — succeed in science, pairing advising, peer community, and study support with real research pathways. Through its Program for Early Researchers (PER), members with little or no experience are matched into campus research labs; through the Research Fellows Program (RFP), members already in a lab can receive research stipends so financial need doesn't force them into unpaid work.",
@@ -826,11 +832,11 @@ const AREA_EMOJI = {
   "Social Science": "🧠", "Humanities": "📚", "Interdisciplinary": "🔀",
   "Neuroscience": "🧠", "Genetics": "🧬",
   "National Laboratory Research": "⚛️",
-  "Biotechnology & Life Sciences": "🧬",
+  "Biology / Life Sciences": "🧬",
   "STEM Diversity & PhD Preparation": "🌱",
   "Biotechnology": "🧫",
   "New Media": "🎨",
-  "Biology & Health Sciences": "🩺", "Psychology": "🧠"
+  "Psychology": "🧠"
 };
 const INTERESTS = [
   {emoji:"💻", label:"Computer Science", match:["Computer Science"]},
@@ -842,8 +848,8 @@ const INTERESTS = [
   {emoji:"📊", label:"Data Science", match:["Data Science"]}
 ];
 const MAJORS = ["Biology / Life Sciences","Chemistry","Computer Science","Data Science","Engineering","Psychology","Public Health","Social Sciences","Humanities","Interdisciplinary","Open to All Majors"];
-const AREAS = ["AI / Machine Learning","Data Science","Molecular Biology","Chemistry","Climate / Environment","Energy Systems","Public Policy","Public Health","Economics","Social Science","Humanities","Interdisciplinary","Neuroscience","Genetics","National Laboratory Research","Biotechnology & Life Sciences","STEM Diversity & PhD Preparation","Biotechnology","New Media","Biology & Health Sciences"];
-const DEPTS = ["EECS","College of Chemistry","CDSS","Office of Undergraduate Research","College of Letters & Science","Matsui Center","Energy & Resources Group","Lawrence Berkeley National Laboratory","Institute of Governmental Studies","UC Berkeley (Amgen Scholars Program)","Cal NERDS STEM Center","QB3-Berkeley / Bakar Bio Labs","Berkeley Center for New Media","Biological Sciences (Valley Life Sciences Building)"];
+const AREAS = ["AI / Machine Learning","Data Science","Molecular Biology","Chemistry","Climate / Environment","Energy Systems","Public Policy","Public Health","Economics","Social Science","Humanities","Interdisciplinary","Neuroscience","Genetics","National Laboratory Research","Biotechnology","Biology / Life Sciences","STEM Diversity & PhD Preparation","New Media"];
+const DEPTS = ["EECS","College of Chemistry","CDSS","Office of Undergraduate Research","College of Letters & Science","Matsui Center","Energy & Resources Group","Lawrence Berkeley National Laboratory","Institute of Governmental Studies","UC Berkeley (Amgen Scholars Program)","Cal NERDS STEM Center","QB3-Berkeley / Bakar Bio Labs","Berkeley Center for New Media","Biological Sciences"];
 
 const state = { q:"", dl:"all", types:new Set(), major:"", area:"", dept:"", interests:new Set(), sort:"deadline", legend:null };
 
@@ -861,7 +867,7 @@ function calendarURL(o){
   const start=parseDeadline(o.deadline);
   const end=new Date(start); end.setDate(end.getDate()+1);
   const lines=[];
-  if((o.deadlineNote||"").includes("Representative")) lines.push("⚠️ Demo date — verify the real deadline on the official page before relying on this.");
+  if(o.deadlineEstimated) lines.push("⚠️ Demo date — verify the real deadline on the official page before relying on this.");
   lines.push(o.description||"");
   lines.push(o.deadlineNote||"");
   lines.push("Official page: "+o.source);
@@ -899,22 +905,23 @@ function matchesDeadlineFilter(o){
     default: return true;
   }
 }
+function areaList(o){ return Array.isArray(o.area) ? o.area : [o.area]; }
 function filtered(){
   let list = OPPORTUNITIES.filter(o=>{
     if(!matchesDeadlineFilter(o)) return false;
     if(state.types.size && !state.types.has(o.type)) return false;
-    if(state.major && !o.majors.includes(state.major)) return false;
-    if(state.area && o.area!==state.area) return false;
+    if(state.major && !o.majors.includes(state.major) && !o.majors.includes("Open to All Majors")) return false;
+    if(state.area && !areaList(o).includes(state.area)) return false;
     if(state.dept && o.dept!==state.dept) return false;
     if(state.legend && deadlineInfo(o).key!==state.legend) return false;
     if(state.interests.size){
       const okAreas = new Set();
       state.interests.forEach(i=>INTERESTS[i].match.forEach(m=>okAreas.add(m)));
-      const hit = o.majors.some(m=>okAreas.has(m)) || okAreas.has(o.area);
+      const hit = o.majors.includes("Open to All Majors") || o.majors.some(m=>okAreas.has(m)) || areaList(o).some(a=>okAreas.has(a));
       if(!hit) return false;
     }
     if(state.q){
-      const hay = (o.title+" "+o.org+" "+o.area+" "+o.dept+" "+o.majors.join(" ")+" "+o.type+" "+o.description+" "+(o.keywords||"")).toLowerCase();
+      const hay = (o.title+" "+o.org+" "+areaList(o).join(" ")+" "+o.dept+" "+o.majors.join(" ")+" "+o.type+" "+o.description+" "+(o.keywords||"")).toLowerCase();
       if(!hay.includes(state.q)) return false;
     }
     return true;
@@ -934,25 +941,24 @@ function filtered(){
 function esc(s){ return String(s??"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function cardHTML(o){
   const info = deadlineInfo(o);
-  const emoji = AREA_EMOJI[o.area]||"🔬";
+  const emoji = AREA_EMOJI[areaList(o)[0]]||"🔬";
   return `<article class="card ${info.card}">
     <div class="card-eyebrow">${esc(o.type)}</div>
     <h3>${esc(o.title)}</h3>
     <div class="card-org">${esc(o.org)}</div>
-    <div><span class="dl-badge ${info.cls}">${info.key==="soon"?"🔴":info.key==="month"?"🟡":info.key==="upcoming"?"🟢":info.key==="ongoing"?"⚪":"⚫"} ${esc(info.label)}${info.sub?` · ${esc(info.sub)}`:""}</span></div>
+    <div><span class="dl-badge ${info.cls}">${info.key==="soon"?"🔴":info.key==="month"?"🟠":info.key==="upcoming"?"🟢":info.key==="ongoing"?"⚪":"⚫"} ${esc(info.label)}${o.deadlineEstimated&&info.days!==null?" (est.)":""}${info.sub?` · ${esc(info.sub)}`:""}</span></div>
     <div class="card-meta">
-      <div class="row"><span class="ico">${emoji}</span><span><strong>Research area:</strong> ${esc(o.area)}</span></div>
+      <div class="row"><span class="ico">${emoji}</span><span><strong>Research area:</strong> ${esc(areaList(o).join(" · "))}</span></div>
       <div class="row"><span class="ico">🎓</span><span><strong>Majors:</strong> ${esc(o.majors.join(" · "))}</span></div>
       <div class="row"><span class="ico">🏫</span><span><strong>Host:</strong> ${esc(o.dept)}</span></div>
       <div class="row"><span class="ico">✅</span><span><strong>Eligibility:</strong> ${esc(o.eligibility)}</span></div>
     </div>
-    <div class="tag-row"><span class="tag type">${esc(o.type)}</span><span class="tag">${esc(o.area)}</span></div>
     <div class="card-actions">
       <button class="btn btn-outline" data-detail="${o.id}">View Details</button>
-      <a class="btn btn-primary" href="${esc(o.source)}" target="_blank" rel="noopener">Apply →</a>
+      ${info.key==="closed" ? `<a class="btn btn-outline" href="${esc(o.source)}" target="_blank" rel="noopener">Program page</a>` : `<a class="btn btn-primary" href="${esc(o.source)}" target="_blank" rel="noopener">Apply →</a>`}
       ${calendarButtonHTML(o)}
     </div>
-    <div class="verified">Last verified: ${esc(o.verified)}${o.deadlineNote?` · <em>${esc(o.deadlineNote)}</em>`:""}</div>
+    <div class="verified">Last verified: ${esc(o.verified)}</div>
   </article>`;
 }
 function render(){
@@ -970,9 +976,9 @@ function detailHTML(o){
     <div class="card-eyebrow">${esc(o.type)}</div>
     <h2 id="detailTitle" style="margin:6px 0 4px;color:var(--berkeley-blue)">${esc(o.title)}</h2>
     <div class="card-org" style="margin-bottom:10px">${esc(o.org)}</div>
-    <div><span class="dl-badge ${info.cls}">${info.key==="soon"?"🔴":info.key==="month"?"🟡":info.key==="upcoming"?"🟢":info.key==="ongoing"?"⚪":"⚫"} ${esc(info.label)}${info.sub?` · ${esc(info.sub)}`:""}</span></div>
+    <div><span class="dl-badge ${info.cls}">${info.key==="soon"?"🔴":info.key==="month"?"🟠":info.key==="upcoming"?"🟢":info.key==="ongoing"?"⚪":"⚫"} ${esc(info.label)}${o.deadlineEstimated&&info.days!==null?" (est.)":""}${info.sub?` · ${esc(info.sub)}`:""}</span></div>
     <div class="detail-grid">
-      <div class="detail-item"><div class="k">Research Area</div><div class="v">${esc(o.area)}</div></div>
+      <div class="detail-item"><div class="k">Research Area</div><div class="v">${esc(areaList(o).join(", "))}</div></div>
       <div class="detail-item"><div class="k">Host Department</div><div class="v">${esc(o.dept)}</div></div>
       <div class="detail-item"><div class="k">Related Majors</div><div class="v">${esc(o.majors.join(", "))}</div></div>
       <div class="detail-item"><div class="k">Eligibility</div><div class="v">${esc(o.eligibility)}</div></div>
@@ -985,18 +991,27 @@ function detailHTML(o){
     ${sec("Research Responsibilities / Activities", o.responsibilities)}
     ${sec("Application Requirements", o.requirements)}
     ${sec("Application Process", o.process)}
+    ${sec("Deadline Note", o.deadlineNote)}
     <div class="modal-actions">
-      <a class="btn btn-gold" href="${esc(o.source)}" target="_blank" rel="noopener">Apply / Learn More →</a>
+      ${info.key==="closed" ? `<a class="btn btn-outline" href="${esc(o.source)}" target="_blank" rel="noopener">Program Page →</a>` : `<a class="btn btn-gold" href="${esc(o.source)}" target="_blank" rel="noopener">Apply / Learn More →</a>`}
+      <button class="btn btn-outline" data-report="${o.id}">Report an update</button>
       ${calendarButtonHTML(o)}
       <span style="font-size:.85rem;color:var(--muted);align-self:center">Original source: <a href="${esc(o.source)}" target="_blank" rel="noopener">${esc(o.sourceName)}</a></span>
     </div>`;
 }
-function openModal(id){ document.getElementById(id).classList.add("open"); document.body.style.overflow="hidden"; }
-function closeModals(){ document.querySelectorAll(".modal.open").forEach(m=>m.classList.remove("open")); document.body.style.overflow=""; }
-function openDetail(id){
+let suppressHash = false;
+function listingFromHash(){ const m = location.hash.match(/^#listing-(.+)$/); return m ? m[1] : null; }
+function openModal(id){ const m = document.getElementById(id); m.classList.add("open"); document.body.style.overflow="hidden"; const c = m.querySelector(".modal-close"); if(c) c.focus(); }
+function closeModals(fromHash){
+  document.querySelectorAll(".modal.open").forEach(m=>m.classList.remove("open")); document.body.style.overflow="";
+  if(!fromHash && listingFromHash()) history.pushState("", document.title, location.pathname + location.search);
+}
+function openDetail(id, fromHash){
   const o = OPPORTUNITIES.find(x=>x.id===id); if(!o) return;
   document.getElementById("detailContent").innerHTML = detailHTML(o);
+  document.querySelectorAll("#detailContent [data-report]").forEach(b=>b.addEventListener("click",()=>{ closeModals(); openForm("report", o.title); }));
   openModal("detailModal");
+  if(!fromHash && listingFromHash()!==id){ suppressHash = true; location.hash = "listing-" + id; }
 }
 function toast(msg){
   const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
@@ -1004,7 +1019,7 @@ function toast(msg){
 }
 
 /* ---- forms ---- */
-function openForm(kind){
+function openForm(kind, preselectTitle){
   const isSuggest = kind==="suggest";
   document.getElementById("formContent").innerHTML = `
     <h2 id="formTitle" style="margin:0 0 6px;color:var(--berkeley-blue)">${isSuggest?"Suggest an Opportunity":"Report an Update"}</h2>
@@ -1021,11 +1036,11 @@ function openForm(kind){
         <select id="ff-which" required><option value="">Select an opportunity…</option>${OPPORTUNITIES.map(o=>`<option>${esc(o.title)}</option>`).join("")}<option>Another listing</option></select></div>
       <div class="form-field"><label for="ff-issue">What needs updating? *</label><textarea id="ff-issue" required placeholder="e.g. The deadline is now March 10, not March 14."></textarea></div>
       <div class="form-field"><label for="ff-link2">Correct link (if any)</label><input id="ff-link2" type="url" placeholder="https://…"></div>`}
-      <div class="form-field"><label for="ff-email">Your email (optional)</label><input id="ff-email" type="email" placeholder="you@berkeley.edu"></div>
       <div class="modal-actions"><button class="btn btn-primary" type="submit">Submit</button></div>
-      <p style="color:var(--muted);font-size:.82rem;margin:12px 0 0">Submitting opens a pre-filled GitHub issue in our repo — you review and confirm it there. Nothing is sent from this page directly.</p>
+      <p style="color:var(--muted);font-size:.82rem;margin:12px 0 0">Submitting opens a pre-filled issue in our public GitHub repo — you'll need a free GitHub account to post it, and you review and confirm it there. Issues are public, so please don't include personal contact details.</p>
     </form>`;
   openModal("formModal");
+  if(!isSuggest && preselectTitle){ const sel = document.getElementById("ff-which"); if(sel) sel.value = preselectTitle; }
   document.getElementById("hubForm").addEventListener("submit", e=>{
     e.preventDefault();
     const v = id => (document.getElementById(id)?.value || "").trim();
@@ -1038,7 +1053,6 @@ function openForm(kind){
         "**Official page:** " + v("ff-link"),
         "**Application deadline:** " + (v("ff-dl") || "—"),
         "**Notes:** " + (v("ff-notes") || "—"),
-        v("ff-email") ? "**Submitted by:** " + v("ff-email") : ""
       ];
     } else {
       title = "[Update] " + v("ff-which");
@@ -1046,7 +1060,6 @@ function openForm(kind){
         "**Listing:** " + v("ff-which"),
         "**What needs updating:** " + v("ff-issue"),
         "**Correct link:** " + (v("ff-link2") || "—"),
-        v("ff-email") ? "**Reported by:** " + v("ff-email") : ""
       ];
     }
     const body = lines.filter(Boolean).join("\n") + "\n\n---\nSubmitted via the Research Opportunity Hub form.";
@@ -1075,7 +1088,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
       on ? state.interests.delete(i) : state.interests.add(i);
       b.setAttribute("aria-pressed", String(!on));
       render();
-      if(!on) document.getElementById("browse").scrollIntoView({behavior:"smooth"});
+      if(!on) document.getElementById("results").scrollIntoView({behavior:"smooth"});
     });
     ig.appendChild(b);
   });
@@ -1124,6 +1137,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
     document.querySelectorAll(".interest").forEach(b=>b.setAttribute("aria-pressed","false"));
     syncLegend(); render();
   });
+
+  const ft = document.getElementById("filtersToggle");
+  if(ft) ft.addEventListener("click", ()=>{
+    const p = document.getElementById("filtersPanel");
+    const open = p.classList.toggle("open");
+    ft.setAttribute("aria-expanded", String(open));
+    ft.textContent = open ? "Hide filters ▴" : "Show filters ▾";
+  });
+  window.addEventListener("hashchange", ()=>{
+    if(suppressHash){ suppressHash = false; return; }
+    const hid = listingFromHash();
+    if(hid) openDetail(hid, true); else closeModals(true);
+  });
+  const initialListing = listingFromHash();
+  if(initialListing) openDetail(initialListing, true);
 
   document.querySelectorAll("[data-form]").forEach(b=>b.addEventListener("click",()=>openForm(b.dataset.form)));
   document.querySelectorAll("[data-close]").forEach(el=>el.addEventListener("click",closeModals));

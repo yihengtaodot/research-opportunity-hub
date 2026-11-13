@@ -4,7 +4,7 @@
     "version": "v1",
     "entries": 18,
     "exported_from": "index.html (embedded dataset; index.html is the source of truth for the demo)",
-    "note": "Listings added in Oct 2026 were checked against official program pages; several deadlines are confirmed (e.g. DOE SULI Jan 6 2027, IGS Percy Grant Nov 29 2026). Several original prototype listings still carry representative dates. Always confirm details on the linked official page before applying."
+    "note": "Listings added in Oct 2026 were checked against official program pages; several deadlines are confirmed (e.g. DOE SULI Jan 6 2027, IGS Percy Grant Nov 29 2026). Six listings carry representative dates, flagged in the data with deadlineEstimated: true and shown as '(est.)' on the site. Always confirm details on the linked official page before applying. Regenerated 2026-11-12 with the Stage 1/2 review fixes."
   },
   "opportunities": [
     {
@@ -30,8 +30,8 @@
       "process": "Apply through the Handshake job posting (ID 11459763) and follow the instructions listed there.",
       "funding": "Paid hourly position — see Handshake posting for details",
       "location": "Berkeley, CA · In-person",
-      "source": "https://app.joinhandshake.com/recruit/jobs/11459763/details",
-      "sourceName": "Handshake job posting 11459763",
+      "source": "https://pwrlab.org/news.html",
+      "sourceName": "Power Transformation Lab — news & opportunities",
       "verified": "Oct 1, 2026",
       "added": 11,
       "keywords": "energy research assistant python julia data visualization handshake"
@@ -59,8 +59,8 @@
       "process": "Apply via the Matsui Center's 2026–27 program application page before the deadline.",
       "funding": "Free shared housing in Sacramento + transportation and living stipend",
       "location": "Spring: Berkeley · Summer: Sacramento, CA",
-      "source": "https://mailchi.mp/berkeley.edu/2026-2027-matsui-center-undergraduate-programs-2",
-      "sourceName": "Matsui Center program announcement",
+      "source": "https://igs.berkeley.edu/matsui-center/programs-fellowships/cal-sacramento-fellowship",
+      "sourceName": "IGS — Cal-in-Sacramento Fellowship",
       "verified": "Oct 1, 2026",
       "added": 10,
       "keywords": "public service internship sacramento policy politics fellowship"
@@ -71,6 +71,7 @@
       "org": "Office of Undergraduate Research & Scholarships (OURS)",
       "type": "URAP",
       "deadline": "2027-02-02",
+      "deadlineEstimated": true,
       "deadlineNote": "Representative date — applications open for a two-week window after the first day of the spring semester",
       "status": "open",
       "majors": [
@@ -125,6 +126,7 @@
       "org": "Dept. of Electrical Engineering & Computer Sciences (EECS)",
       "type": "Summer Research",
       "deadline": "2027-01-25",
+      "deadlineEstimated": true,
       "deadlineNote": "Representative date — based on the prior cycle's late-January deadline",
       "status": "open",
       "majors": [
@@ -153,6 +155,7 @@
       "org": "College of Letters & Science / OURS",
       "type": "Fellowship",
       "deadline": "2027-03-14",
+      "deadlineEstimated": true,
       "deadlineNote": "Representative date — based on the prior cycle's mid-March deadline",
       "status": "open",
       "majors": [
@@ -184,6 +187,7 @@
       "org": "Office of Undergraduate Research & Scholarships (OURS)",
       "type": "Fellowship",
       "deadline": "2027-03-02",
+      "deadlineEstimated": true,
       "deadlineNote": "Representative date — confirm on the official page",
       "status": "open",
       "majors": [
@@ -203,7 +207,7 @@
       "process": "Apply online when the application opens in early fall; applications are read by discipline-based selection committees.",
       "funding": "Up to $13,800 in financial support",
       "location": "Berkeley, CA · Academic year",
-      "source": "http://research.berkeley.edu/haas-scholars/faq/",
+      "source": "https://research.berkeley.edu/haas-scholars/faq/",
       "sourceName": "Haas Scholars FAQ",
       "verified": "Oct 1, 2026",
       "added": 6,
@@ -215,6 +219,7 @@
       "org": "Office of Undergraduate Research & Scholarships (OURS)",
       "type": "Summer Research",
       "deadline": "2027-03-15",
+      "deadlineEstimated": true,
       "deadlineNote": "Representative date — confirm on the official page",
       "status": "open",
       "majors": [
@@ -222,7 +227,10 @@
         "Chemistry",
         "Engineering"
       ],
-      "area": "Molecular Biology",
+      "area": [
+        "Molecular Biology",
+        "Biology / Life Sciences"
+      ],
       "dept": "Office of Undergraduate Research",
       "eligibility": "Undergraduates in the sciences and engineering",
       "level": "All undergraduate levels",
@@ -317,7 +325,7 @@
       "process": "Browse faculty research areas, email professors with your resume and interests, or apply through URAP listings.",
       "funding": "Academic credit (EECS 199); some labs offer hourly pay",
       "location": "Berkeley, CA · Varies by lab",
-      "source": "http://eecs.berkeley.edu/resources/undergrads/undergraduate-research/",
+      "source": "https://eecs.berkeley.edu/resources/undergrads/undergraduate-research/",
       "sourceName": "EECS undergraduate research page",
       "verified": "Oct 1, 2026",
       "added": 2,
@@ -350,9 +358,9 @@
       "location": "Berkeley, CA · Lawrence Berkeley National Laboratory",
       "source": "https://science.osti.gov/wdts/suli",
       "sourceName": "DOE Office of Science — SULI program page",
-      "keywords": "suli doe berkeley lab lbnl national laboratory summer internship paid stem",
       "verified": "Oct 22, 2026",
-      "added": 12
+      "added": 12,
+      "keywords": "suli doe berkeley lab lbnl national laboratory summer internship paid stem"
     },
     {
       "id": "percy-grant",
@@ -378,9 +386,9 @@
       "location": "Berkeley, CA",
       "source": "https://igs.berkeley.edu/student-opportunities/awards-grants/charles-h-percy-undergraduate-grant-public-affairs-research",
       "sourceName": "IGS — Percy Grant program page",
-      "keywords": "percy grant igs politics public affairs research funding american politics $1000",
       "verified": "Oct 22, 2026",
-      "added": 13
+      "added": 13,
+      "keywords": "percy grant igs politics public affairs research funding american politics $1000"
     },
     {
       "id": "amgen-scholars-berkeley",
@@ -396,7 +404,10 @@
         "Engineering",
         "Data Science"
       ],
-      "area": "Biotechnology & Life Sciences",
+      "area": [
+        "Biotechnology",
+        "Biology / Life Sciences"
+      ],
       "dept": "UC Berkeley (Amgen Scholars Program)",
       "eligibility": "Undergraduates enrolled in accredited four-year colleges or universities in the U.S. (any institution, not just Berkeley); GPA 3.2 or higher; sophomores, juniors, or non-graduating seniors; U.S. citizens or permanent residents; interest in pursuing a PhD or MD-PhD",
       "level": "Sophomores, juniors, and non-graduating seniors",
@@ -408,9 +419,9 @@
       "location": "Berkeley, CA · Residential summer program",
       "source": "https://amgenscholars.com/university/university-of-california-berkeley/",
       "sourceName": "Amgen Scholars — UC Berkeley host institution page",
-      "keywords": "amgen scholars summer research biotechnology biology chemistry bioengineering stipend phd",
       "verified": "Oct 22, 2026",
-      "added": 14
+      "added": 14,
+      "keywords": "amgen scholars summer research biotechnology biology chemistry bioengineering stipend phd"
     },
     {
       "id": "uc-leads",
@@ -440,9 +451,9 @@
       "location": "Berkeley, CA · second summer often at another UC campus",
       "source": "https://calnerds.berkeley.edu/programs/uc-leads",
       "sourceName": "Cal NERDS — UC LEADS program page",
-      "keywords": "uc leads cal nerds paid summer research stem diversity phd preparation first-generation",
       "verified": "Oct 22, 2026",
-      "added": 15
+      "added": 15,
+      "keywords": "uc leads cal nerds paid summer research stem diversity phd preparation first-generation"
     },
     {
       "id": "qb3-break-into-biotech",
@@ -457,7 +468,10 @@
         "Chemistry",
         "Engineering"
       ],
-      "area": "Biotechnology",
+      "area": [
+        "Biotechnology",
+        "Biology / Life Sciences"
+      ],
       "dept": "QB3-Berkeley / Bakar Bio Labs",
       "eligibility": "UC Berkeley students who aspire to work in labs but face financial constraints and/or a lack of experience; applicants should have responsibilities to support the financial costs of their education",
       "level": "All undergraduate levels",
@@ -469,9 +483,9 @@
       "location": "Berkeley, CA · QB3 / Bakar Bio Labs",
       "source": "https://qb3.org/break-into-biotech/",
       "sourceName": "QB3 — Break into Biotech program page",
-      "keywords": "qb3 break into biotech paid training benchwork bakar bio labs internship startup",
       "verified": "Oct 22, 2026",
-      "added": 16
+      "added": 16,
+      "keywords": "qb3 break into biotech paid training benchwork bakar bio labs internship startup"
     },
     {
       "id": "bcnm-undergraduate-research-fellowship",
@@ -479,6 +493,7 @@
       "org": "Berkeley Center for New Media (BCNM)",
       "type": "Fellowship",
       "deadline": "2027-03-01",
+      "deadlineEstimated": true,
       "deadlineNote": "Representative date — annual March 1 deadline per the BCNM page; the undergraduate call opens by the start of spring semester, verify on the BCNM page",
       "status": "open",
       "majors": [
@@ -497,11 +512,11 @@
       "process": "Watch for the undergraduate call on the BCNM page at the start of spring semester and apply by March 1.",
       "funding": "$1,000 fellowship for approximately 50 hours of work; graduate student mentors receive $500",
       "location": "Berkeley, CA",
-      "source": "http://bcnm.berkeley.edu/resources/2851/undergraduate-research-fellowship",
+      "source": "https://bcnm.berkeley.edu/resources/2851/undergraduate-research-fellowship",
       "sourceName": "BCNM — Undergraduate Research Fellowship",
-      "keywords": "bcnm new media fellowship undergraduate research graduate mentor symposium digital media",
       "verified": "Oct 22, 2026",
-      "added": 17
+      "added": 17,
+      "keywords": "bcnm new media fellowship undergraduate research graduate mentor symposium digital media"
     },
     {
       "id": "biology-scholars-program",
@@ -514,8 +529,11 @@
       "majors": [
         "Biology / Life Sciences"
       ],
-      "area": "Biology & Health Sciences",
-      "dept": "Biological Sciences (Valley Life Sciences Building)",
+      "area": [
+        "Biology / Life Sciences",
+        "Public Health"
+      ],
+      "dept": "Biological Sciences",
       "eligibility": "UC Berkeley undergraduates in the biological sciences — BSP has served 3,800+ students, primarily from low-income, first-generation, and minoritized backgrounds",
       "level": "All undergraduate levels (biology-intended and declared)",
       "description": "BSP is a long-running Berkeley community that helps biology undergraduates — especially low-income, first-in-family, and minoritized students — succeed in science, pairing advising, peer community, and study support with real research pathways. Through its Program for Early Researchers (PER), members with little or no experience are matched into campus research labs; through the Research Fellows Program (RFP), members already in a lab can receive research stipends so financial need doesn't force them into unpaid work.",
@@ -526,9 +544,9 @@
       "location": "Berkeley, CA · Valley Life Sciences Building",
       "source": "https://bsp.berkeley.edu/about/apply-bsp",
       "sourceName": "Biology Scholars Program — Apply to BSP",
-      "keywords": "bsp biology scholars program first-generation low-income research placement stipend mcb ib",
       "verified": "Oct 22, 2026",
-      "added": 18
+      "added": 18,
+      "keywords": "bsp biology scholars program first-generation low-income research placement stipend mcb ib"
     }
   ]
 }
