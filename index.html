@@ -243,8 +243,8 @@
             <div class="fg-title">Deadline</div>
             <fieldset id="fDeadline">
               <label class="f-check"><input type="radio" name="dl" value="all" checked> All deadlines</label>
-              <label class="f-check"><input type="radio" name="dl" value="week"> Due this week</label>
-              <label class="f-check"><input type="radio" name="dl" value="month"> Due this month</label>
+              <label class="f-check"><input type="radio" name="dl" value="week"> Due in 7 days</label>
+              <label class="f-check"><input type="radio" name="dl" value="month"> Due in 30 days</label>
               <label class="f-check"><input type="radio" name="dl" value="3months"> Next 3 months</label>
               <label class="f-check"><input type="radio" name="dl" value="later"> Later</label>
               <label class="f-check"><input type="radio" name="dl" value="rolling"> Rolling / ongoing</label>
@@ -272,7 +272,7 @@
         <div class="results" id="results">
           <div class="legend" role="group" aria-label="Deadline urgency legend">
             <button data-legend="soon" aria-pressed="false"><span class="dot soon"></span>🔴 Due Soon</button>
-            <button data-legend="month" aria-pressed="false"><span class="dot month"></span>🟠 Due This Month</button>
+            <button data-legend="month" aria-pressed="false"><span class="dot month"></span>🟠 Due in 15–30 Days</button>
             <button data-legend="upcoming" aria-pressed="false"><span class="dot upcoming"></span>🟢 Upcoming</button>
             <button data-legend="ongoing" aria-pressed="false"><span class="dot ongoing"></span>⚪ Ongoing</button>
             <button data-legend="closed" aria-pressed="false"><span class="dot closed"></span>⚫ Closed</button>
@@ -407,8 +407,8 @@ function deadlineInfo(o){
   if(diff < 0) return {key:"closed", label:"Closed", cls:"closed", card:"dl-closed", days:null};
   const dateStr = d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
   if(diff <= 14) return {key:"soon", label:"Due "+dateStr, sub: diff===0?"Due today":diff===1?"1 day left":diff+" days left", cls:"soon", card:"dl-soon", days:diff};
-  const t = todayMidnight();
-  if(d.getMonth()===t.getMonth() && d.getFullYear()===t.getFullYear())
+  // Tiers are rolling day counts, same basis as the sidebar windows (C4): soon ≤14, month 15–30, upcoming >30.
+  if(diff <= 30)
     return {key:"month", label:"Due "+dateStr, sub:diff+" days left", cls:"month", card:"dl-month", days:diff};
   return {key:"upcoming", label:"Due "+dateStr, sub:diff+" days left", cls:"upcoming", card:"dl-upcoming", days:diff};
 }
@@ -417,7 +417,7 @@ function matchesDeadlineFilter(o){
   switch(state.dl){
     case "all": return true;
     case "week": return info.days!==null && info.days<=7;
-    case "month": { const d=parseDeadline(o.deadline); if(!d) return false; const t=todayMidnight(); return d>=t && d.getMonth()===t.getMonth() && d.getFullYear()===t.getFullYear(); }
+    case "month": return info.days!==null && info.days<=30;
     case "3months": return info.days!==null && info.days<=92;
     case "later": return info.days!==null && info.days>92;
     case "rolling": return info.key==="ongoing";
