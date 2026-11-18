@@ -442,7 +442,8 @@ function filtered(){
     }
     if(state.q){
       const hay = (o.title+" "+o.org+" "+areaList(o).join(" ")+" "+o.dept+" "+o.majors.join(" ")+" "+o.type+" "+o.description+" "+(o.keywords||"")).toLowerCase();
-      if(!hay.includes(state.q)) return false;
+      // Every whitespace-separated word must appear somewhere (AND), in any order.
+      if(!state.q.split(/\s+/).every(w=>hay.includes(w))) return false;
     }
     return true;
   });
