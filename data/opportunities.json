@@ -2,9 +2,12 @@
   "meta": {
     "name": "Research Opportunity Hub — demo dataset",
     "version": "v1",
+    "schema_version": "1.0",
+    "updated_at": "2026-11-18",
     "entries": 18,
-    "exported_from": "index.html (embedded dataset; index.html is the source of truth for the demo)",
-    "note": "Listings added in Oct 2026 were checked against official program pages; several deadlines are confirmed (e.g. DOE SULI Jan 6 2027, IGS Percy Grant Nov 29 2026). Six listings carry representative dates, flagged in the data with deadlineEstimated: true and shown as '(est.)' on the site. Always confirm details on the linked official page before applying. Regenerated 2026-11-12 with the Stage 1/2 review fixes."
+    "source_of_truth": "This file. index.html loads it at runtime; there is no other copy of the data.",
+    "note": "Listings added in Oct 2026 were checked against official program pages; several deadlines are confirmed (e.g. DOE SULI Jan 6 2027, IGS Percy Grant Nov 29 2026). Six listings carry representative dates, flagged with deadline_type: \"estimated\" and shown as '(est.)' on the site. Always confirm details on the linked official page before applying.",
+    "added_at_note": "added_at values are synthetic: the legacy data only had an integer sort order (added). Dates were generated to preserve that order, with the newest entry on 2026-10-22 (the date it was committed) and each earlier entry one day before. Use added_at for ordering only until real dates are recorded."
   },
   "opportunities": [
     {
@@ -12,15 +15,18 @@
       "title": "Undergraduate Research Assistant — Power Transformation Lab",
       "org": "Power Transformation Lab",
       "type": "Faculty Lab",
-      "deadline": "2026-10-03",
-      "deadlineNote": "",
       "status": "open",
+      "deadline": "2026-10-03",
+      "deadline_type": "fixed",
+      "deadline_note": "",
       "majors": [
         "Computer Science",
         "Engineering",
         "Data Science"
       ],
-      "area": "Energy Systems",
+      "research_areas": [
+        "Energy Systems"
+      ],
       "dept": "Energy & Resources Group",
       "eligibility": "Undergraduate students · Python or Julia proficiency",
       "level": "All undergraduate levels",
@@ -31,25 +37,28 @@
       "funding": "Paid hourly position — see Handshake posting for details",
       "location": "Berkeley, CA · In-person",
       "source": "https://pwrlab.org/news.html",
-      "sourceName": "Power Transformation Lab — news & opportunities",
-      "verified": "Oct 1, 2026",
-      "added": 11,
-      "keywords": "energy research assistant python julia data visualization handshake"
+      "source_name": "Power Transformation Lab — news & opportunities",
+      "keywords": "energy research assistant python julia data visualization handshake",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-15"
     },
     {
       "id": "cal-in-sacramento",
       "title": "Cal-in-Sacramento Fellowship",
       "org": "Matsui Center for Politics and Public Service",
       "type": "Fellowship",
-      "deadline": "2026-10-04",
-      "deadlineNote": "11:59 PM PT",
       "status": "open",
+      "deadline": "2026-10-04",
+      "deadline_type": "fixed",
+      "deadline_note": "11:59 PM PT",
       "majors": [
         "Open to All Majors",
         "Social Sciences",
         "Public Health"
       ],
-      "area": "Public Policy",
+      "research_areas": [
+        "Public Policy"
+      ],
       "dept": "Matsui Center",
       "eligibility": "UC Berkeley undergraduates passionate about public service",
       "level": "All undergraduate levels",
@@ -60,24 +69,26 @@
       "funding": "Free shared housing in Sacramento + transportation and living stipend",
       "location": "Spring: Berkeley · Summer: Sacramento, CA",
       "source": "https://igs.berkeley.edu/matsui-center/programs-fellowships/cal-sacramento-fellowship",
-      "sourceName": "IGS — Cal-in-Sacramento Fellowship",
-      "verified": "Oct 1, 2026",
-      "added": 10,
-      "keywords": "public service internship sacramento policy politics fellowship"
+      "source_name": "IGS — Cal-in-Sacramento Fellowship",
+      "keywords": "public service internship sacramento policy politics fellowship",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-14"
     },
     {
       "id": "urap-spring-2027",
       "title": "Undergraduate Research Apprentice Program (URAP) — Spring 2027",
       "org": "Office of Undergraduate Research & Scholarships (OURS)",
       "type": "URAP",
-      "deadline": "2027-02-02",
-      "deadlineEstimated": true,
-      "deadlineNote": "Representative date — applications open for a two-week window after the first day of the spring semester",
       "status": "open",
+      "deadline": "2027-02-02",
+      "deadline_type": "estimated",
+      "deadline_note": "Representative date — applications open for a two-week window after the first day of the spring semester",
       "majors": [
         "Open to All Majors"
       ],
-      "area": "Interdisciplinary",
+      "research_areas": [
+        "Interdisciplinary"
+      ],
       "dept": "Office of Undergraduate Research",
       "eligibility": "Matriculated UC Berkeley undergraduates",
       "level": "All undergraduate levels",
@@ -88,23 +99,26 @@
       "funding": "Academic credit — 1 unit per 3 hours of research per week (up to 4 units/term)",
       "location": "Berkeley, CA · Varies by project",
       "source": "https://research.berkeley.edu/urap/application/",
-      "sourceName": "URAP application page",
-      "verified": "Oct 1, 2026",
-      "added": 9,
-      "keywords": "urap apprentice faculty mentor research credit"
+      "source_name": "URAP application page",
+      "keywords": "urap apprentice faculty mentor research credit",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-13"
     },
     {
       "id": "urap-fall-2026",
       "title": "Undergraduate Research Apprentice Program (URAP) — Fall 2026",
       "org": "Office of Undergraduate Research & Scholarships (OURS)",
       "type": "URAP",
-      "deadline": "closed",
-      "deadlineNote": "",
       "status": "closed",
+      "deadline": null,
+      "deadline_type": "closed",
+      "deadline_note": "",
       "majors": [
         "Open to All Majors"
       ],
-      "area": "Interdisciplinary",
+      "research_areas": [
+        "Interdisciplinary"
+      ],
       "dept": "Office of Undergraduate Research",
       "eligibility": "Matriculated UC Berkeley undergraduates",
       "level": "All undergraduate levels",
@@ -115,25 +129,27 @@
       "funding": "Academic credit — 1 unit per 3 hours of research per week (up to 4 units/term)",
       "location": "Berkeley, CA · Varies by project",
       "source": "https://research.berkeley.edu/urap/application/",
-      "sourceName": "URAP application page",
-      "verified": "Oct 1, 2026",
-      "added": 1,
-      "keywords": "urap apprentice closed"
+      "source_name": "URAP application page",
+      "keywords": "urap apprentice closed",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-05"
     },
     {
       "id": "superb-2027",
       "title": "SUPERB 2027 — Summer Undergraduate Program in Engineering Research at Berkeley (AI4E)",
       "org": "Dept. of Electrical Engineering & Computer Sciences (EECS)",
       "type": "Summer Research",
-      "deadline": "2027-01-25",
-      "deadlineEstimated": true,
-      "deadlineNote": "Representative date — based on the prior cycle's late-January deadline",
       "status": "open",
+      "deadline": "2027-01-25",
+      "deadline_type": "estimated",
+      "deadline_note": "Representative date — based on the prior cycle's late-January deadline",
       "majors": [
         "Computer Science",
         "Engineering"
       ],
-      "area": "AI / Machine Learning",
+      "research_areas": [
+        "AI / Machine Learning"
+      ],
       "dept": "EECS",
       "eligibility": "Undergraduates · juniors/seniors preferred · interest in AI for Engineering",
       "level": "Junior / Senior preferred",
@@ -144,20 +160,20 @@
       "funding": "Stipend + room and board at International House",
       "location": "Berkeley, CA · In-person, June–August",
       "source": "https://eecs.berkeley.edu/resources/undergrads/undergraduate-research/superb/",
-      "sourceName": "SUPERB program page (EECS)",
-      "verified": "Oct 1, 2026",
-      "added": 8,
-      "keywords": "superb reu summer engineering ai machine learning stipend housing"
+      "source_name": "SUPERB program page (EECS)",
+      "keywords": "superb reu summer engineering ai machine learning stipend housing",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-12"
     },
     {
       "id": "surf-2027",
       "title": "SURF L&S — Summer Undergraduate Research Fellowship 2027",
       "org": "College of Letters & Science / OURS",
       "type": "Fellowship",
-      "deadline": "2027-03-14",
-      "deadlineEstimated": true,
-      "deadlineNote": "Representative date — based on the prior cycle's mid-March deadline",
       "status": "open",
+      "deadline": "2027-03-14",
+      "deadline_type": "estimated",
+      "deadline_note": "Representative date — based on the prior cycle's mid-March deadline",
       "majors": [
         "Open to All Majors",
         "Humanities",
@@ -165,7 +181,9 @@
         "Biology / Life Sciences",
         "Chemistry"
       ],
-      "area": "Interdisciplinary",
+      "research_areas": [
+        "Interdisciplinary"
+      ],
       "dept": "College of Letters & Science",
       "eligibility": "L&S undergraduates with junior/senior standing · 3.0+ GPA · faculty mentor required",
       "level": "Junior / Senior",
@@ -176,20 +194,20 @@
       "funding": "$5,000 fellowship award",
       "location": "Berkeley, CA · Full-time summer",
       "source": "https://star.berkeley.edu/resources/summer-undergraduate-research-fellowship-surf",
-      "sourceName": "SURF program listing (STAR Berkeley)",
-      "verified": "Oct 1, 2026",
-      "added": 7,
-      "keywords": "surf fellowship summer independent research thesis capstone"
+      "source_name": "SURF program listing (STAR Berkeley)",
+      "keywords": "surf fellowship summer independent research thesis capstone",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-11"
     },
     {
       "id": "haas-scholars-2627",
       "title": "Haas Scholars Program 2026–27",
       "org": "Office of Undergraduate Research & Scholarships (OURS)",
       "type": "Fellowship",
-      "deadline": "2027-03-02",
-      "deadlineEstimated": true,
-      "deadlineNote": "Representative date — confirm on the official page",
       "status": "open",
+      "deadline": "2027-03-02",
+      "deadline_type": "estimated",
+      "deadline_note": "Representative date — confirm on the official page",
       "majors": [
         "Open to All Majors",
         "Humanities",
@@ -197,7 +215,9 @@
         "Biology / Life Sciences",
         "Engineering"
       ],
-      "area": "Interdisciplinary",
+      "research_areas": [
+        "Interdisciplinary"
+      ],
       "dept": "Office of Undergraduate Research",
       "eligibility": "Seniors graduating Fall 2026 or Spring/Summer 2027 · 3.450+ GPA · eligible for need-based financial aid",
       "level": "Senior",
@@ -208,26 +228,26 @@
       "funding": "Up to $13,800 in financial support",
       "location": "Berkeley, CA · Academic year",
       "source": "https://research.berkeley.edu/haas-scholars/faq/",
-      "sourceName": "Haas Scholars FAQ",
-      "verified": "Oct 1, 2026",
-      "added": 6,
-      "keywords": "haas scholars senior capstone fellowship cohort funded"
+      "source_name": "Haas Scholars FAQ",
+      "keywords": "haas scholars senior capstone fellowship cohort funded",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-10"
     },
     {
       "id": "rose-hills-2027",
       "title": "Rose Hills Summer Program 2027",
       "org": "Office of Undergraduate Research & Scholarships (OURS)",
       "type": "Summer Research",
-      "deadline": "2027-03-15",
-      "deadlineEstimated": true,
-      "deadlineNote": "Representative date — confirm on the official page",
       "status": "open",
+      "deadline": "2027-03-15",
+      "deadline_type": "estimated",
+      "deadline_note": "Representative date — confirm on the official page",
       "majors": [
         "Biology / Life Sciences",
         "Chemistry",
         "Engineering"
       ],
-      "area": [
+      "research_areas": [
         "Molecular Biology",
         "Biology / Life Sciences"
       ],
@@ -241,25 +261,28 @@
       "funding": "$5,000 summer award",
       "location": "Berkeley, CA · Full-time summer",
       "source": "https://research.berkeley.edu/rose-hills-program/",
-      "sourceName": "Rose Hills program page",
-      "verified": "Oct 1, 2026",
-      "added": 5,
-      "keywords": "rose hills summer sciences engineering funding"
+      "source_name": "Rose Hills program page",
+      "keywords": "rose hills summer sciences engineering funding",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-09"
     },
     {
       "id": "discovery-spring-2027",
       "title": "Data Science Discovery Program — Spring 2027",
       "org": "College of Computing, Data Science, and Society (CDSS)",
       "type": "Research Program",
-      "deadline": null,
-      "deadlineNote": "Applications posted before the start of each semester",
       "status": "open",
+      "deadline": null,
+      "deadline_type": "rolling",
+      "deadline_note": "Applications posted before the start of each semester",
       "majors": [
         "Computer Science",
         "Data Science",
         "Open to All Majors"
       ],
-      "area": "Data Science",
+      "research_areas": [
+        "Data Science"
+      ],
       "dept": "CDSS",
       "eligibility": "UC Berkeley undergraduates · all majors welcome",
       "level": "All undergraduate levels",
@@ -270,24 +293,27 @@
       "funding": "Academic credit (student researcher roles are unpaid)",
       "location": "Berkeley, CA · Team-based",
       "source": "https://star.berkeley.edu/resources/data-science-discovery-program",
-      "sourceName": "Discovery program listing (STAR Berkeley)",
-      "verified": "Oct 1, 2026",
-      "added": 4,
-      "keywords": "discovery data science team project nlp machine learning"
+      "source_name": "Discovery program listing (STAR Berkeley)",
+      "keywords": "discovery data science team project nlp machine learning",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-08"
     },
     {
       "id": "surd-2027",
       "title": "SURD 2027 — Summer Undergraduate Research Diversity Program (Chemistry)",
       "org": "College of Chemistry",
       "type": "Summer Research",
-      "deadline": null,
-      "deadlineNote": "Apply via the online application — check the page for review timing",
       "status": "open",
+      "deadline": null,
+      "deadline_type": "rolling",
+      "deadline_note": "Apply via the online application — check the page for review timing",
       "majors": [
         "Chemistry",
         "Biology / Life Sciences"
       ],
-      "area": "Chemistry",
+      "research_areas": [
+        "Chemistry"
+      ],
       "dept": "College of Chemistry",
       "eligibility": "Undergraduates interested in chemistry research",
       "level": "All undergraduate levels",
@@ -298,24 +324,27 @@
       "funding": "See official page for details",
       "location": "Berkeley, CA · Full-time summer",
       "source": "https://chemistry.berkeley.edu/dei/programs/surd",
-      "sourceName": "SURD program page (College of Chemistry)",
-      "verified": "Oct 1, 2026",
-      "added": 3,
-      "keywords": "surd chemistry summer diversity research"
+      "source_name": "SURD program page (College of Chemistry)",
+      "keywords": "surd chemistry summer diversity research",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-07"
     },
     {
       "id": "eecs-faculty-labs",
       "title": "EECS Faculty Labs — Undergraduate Research (EECS 199)",
       "org": "Dept. of Electrical Engineering & Computer Sciences (EECS)",
       "type": "Faculty Lab",
-      "deadline": null,
-      "deadlineNote": "Contact labs directly — many hire on a rolling basis",
       "status": "open",
+      "deadline": null,
+      "deadline_type": "rolling",
+      "deadline_note": "Contact labs directly — many hire on a rolling basis",
       "majors": [
         "Computer Science",
         "Engineering"
       ],
-      "area": "AI / Machine Learning",
+      "research_areas": [
+        "AI / Machine Learning"
+      ],
       "dept": "EECS",
       "eligibility": "EECS undergraduates · faculty supervisor approval required",
       "level": "All undergraduate levels",
@@ -326,19 +355,20 @@
       "funding": "Academic credit (EECS 199); some labs offer hourly pay",
       "location": "Berkeley, CA · Varies by lab",
       "source": "https://eecs.berkeley.edu/resources/undergrads/undergraduate-research/",
-      "sourceName": "EECS undergraduate research page",
-      "verified": "Oct 1, 2026",
-      "added": 2,
-      "keywords": "eecs faculty lab 199 bair ai robotics research assistant"
+      "source_name": "EECS undergraduate research page",
+      "keywords": "eecs faculty lab 199 bair ai robotics research assistant",
+      "verified_at": "2026-10-01",
+      "added_at": "2026-10-06"
     },
     {
       "id": "suli-berkeley-lab-summer-2027",
       "title": "DOE SULI Internship — Summer 2027 (Berkeley Lab)",
       "org": "U.S. Department of Energy — Science Undergraduate Laboratory Internships (SULI)",
       "type": "Summer Research",
-      "deadline": "2027-01-06",
-      "deadlineNote": "",
       "status": "open",
+      "deadline": "2027-01-06",
+      "deadline_type": "fixed",
+      "deadline_note": "",
       "majors": [
         "Biology / Life Sciences",
         "Chemistry",
@@ -346,7 +376,9 @@
         "Engineering",
         "Interdisciplinary"
       ],
-      "area": "National Laboratory Research",
+      "research_areas": [
+        "National Laboratory Research"
+      ],
       "dept": "Lawrence Berkeley National Laboratory",
       "eligibility": "Full-time students at four-year institutions and community colleges, and recent graduates within two years of receiving a bachelor's or associate degree",
       "level": "All undergraduate levels + recent graduates",
@@ -357,24 +389,27 @@
       "funding": "Paid stipend; participants living outside the commuting area also receive round-trip travel and lodging assistance",
       "location": "Berkeley, CA · Lawrence Berkeley National Laboratory",
       "source": "https://science.osti.gov/wdts/suli",
-      "sourceName": "DOE Office of Science — SULI program page",
-      "verified": "Oct 22, 2026",
-      "added": 12,
-      "keywords": "suli doe berkeley lab lbnl national laboratory summer internship paid stem"
+      "source_name": "DOE Office of Science — SULI program page",
+      "keywords": "suli doe berkeley lab lbnl national laboratory summer internship paid stem",
+      "verified_at": "2026-10-22",
+      "added_at": "2026-10-16"
     },
     {
       "id": "percy-grant",
       "title": "Charles H. Percy Undergraduate Grant for Public Affairs Research",
       "org": "Institute of Governmental Studies (IGS)",
       "type": "Research Funding",
-      "deadline": "2026-11-29",
-      "deadlineNote": "",
       "status": "open",
+      "deadline": "2026-11-29",
+      "deadline_type": "fixed",
+      "deadline_note": "",
       "majors": [
         "Open to All Majors",
         "Social Sciences"
       ],
-      "area": "Public Policy",
+      "research_areas": [
+        "Public Policy"
+      ],
       "dept": "Institute of Governmental Studies",
       "eligibility": "Registered UC Berkeley undergraduate students conducting original research on an aspect of American politics",
       "level": "All undergraduate levels",
@@ -385,26 +420,27 @@
       "funding": "$1,000 research grant (up to four awarded annually)",
       "location": "Berkeley, CA",
       "source": "https://igs.berkeley.edu/student-opportunities/awards-grants/charles-h-percy-undergraduate-grant-public-affairs-research",
-      "sourceName": "IGS — Percy Grant program page",
-      "verified": "Oct 22, 2026",
-      "added": 13,
-      "keywords": "percy grant igs politics public affairs research funding american politics $1000"
+      "source_name": "IGS — Percy Grant program page",
+      "keywords": "percy grant igs politics public affairs research funding american politics $1000",
+      "verified_at": "2026-10-22",
+      "added_at": "2026-10-17"
     },
     {
       "id": "amgen-scholars-berkeley",
       "title": "Amgen Scholars Program at UC Berkeley — Summer 2027",
       "org": "Amgen Scholars Program at UC Berkeley",
       "type": "Summer Research",
-      "deadline": "2027-02-01",
-      "deadlineNote": "Amgen Scholars' common application deadline — the portal opens November 1, 2026; confirm Berkeley-specific details on the Amgen application portal",
       "status": "open",
+      "deadline": "2027-02-01",
+      "deadline_type": "fixed",
+      "deadline_note": "Amgen Scholars' common application deadline — the portal opens November 1, 2026; confirm Berkeley-specific details on the Amgen application portal",
       "majors": [
         "Biology / Life Sciences",
         "Chemistry",
         "Engineering",
         "Data Science"
       ],
-      "area": [
+      "research_areas": [
         "Biotechnology",
         "Biology / Life Sciences"
       ],
@@ -418,19 +454,20 @@
       "funding": "Stipend, coverage of summer session fees, campus apartment housing, meal allowance, round-trip travel to Berkeley, and the North America Symposium",
       "location": "Berkeley, CA · Residential summer program",
       "source": "https://amgenscholars.com/university/university-of-california-berkeley/",
-      "sourceName": "Amgen Scholars — UC Berkeley host institution page",
-      "verified": "Oct 22, 2026",
-      "added": 14,
-      "keywords": "amgen scholars summer research biotechnology biology chemistry bioengineering stipend phd"
+      "source_name": "Amgen Scholars — UC Berkeley host institution page",
+      "keywords": "amgen scholars summer research biotechnology biology chemistry bioengineering stipend phd",
+      "verified_at": "2026-10-22",
+      "added_at": "2026-10-18"
     },
     {
       "id": "uc-leads",
       "title": "UC LEADS Research Program (via Cal NERDS)",
       "org": "Cal NERDS — New Experiences for Research and Diversity in Science",
       "type": "Research Program",
-      "deadline": null,
-      "deadlineNote": "Applications for the 2027 cohort open January 2027; five to seven scholars are selected each spring — check the Cal NERDS page for the closing date",
       "status": "open",
+      "deadline": null,
+      "deadline_type": "rolling",
+      "deadline_note": "Applications for the 2027 cohort open January 2027; five to seven scholars are selected each spring — check the Cal NERDS page for the closing date",
       "majors": [
         "Biology / Life Sciences",
         "Chemistry",
@@ -439,7 +476,9 @@
         "Data Science",
         "Interdisciplinary"
       ],
-      "area": "STEM Diversity & PhD Preparation",
+      "research_areas": [
+        "STEM Diversity & PhD Preparation"
+      ],
       "dept": "Cal NERDS STEM Center",
       "eligibility": "Registered UC Berkeley STEM students who have experienced situations or conditions that adversely impacted their advancement; at least one semester completed at Berkeley; U.S. citizens, permanent residents, or DREAMers; ideally ~3.0 GPA; designed for sophomores and juniors (transfer juniors welcome)",
       "level": "Sophomores and juniors (upper-division focus)",
@@ -450,25 +489,26 @@
       "funding": "Paid summer research — stipend typically $4,500 per summer, plus help with housing, food, and transportation for the host-campus summer",
       "location": "Berkeley, CA · second summer often at another UC campus",
       "source": "https://calnerds.berkeley.edu/programs/uc-leads",
-      "sourceName": "Cal NERDS — UC LEADS program page",
-      "verified": "Oct 22, 2026",
-      "added": 15,
-      "keywords": "uc leads cal nerds paid summer research stem diversity phd preparation first-generation"
+      "source_name": "Cal NERDS — UC LEADS program page",
+      "keywords": "uc leads cal nerds paid summer research stem diversity phd preparation first-generation",
+      "verified_at": "2026-10-22",
+      "added_at": "2026-10-19"
     },
     {
       "id": "qb3-break-into-biotech",
       "title": "Break into Biotech (QB3)",
       "org": "QB3 — California Institute for Quantitative Biosciences",
       "type": "Research Program",
-      "deadline": null,
-      "deadlineNote": "Applications opened Friday, September 4, 2026; no closing deadline is posted on the program page — the training cohort starts in February, so apply early",
       "status": "open",
+      "deadline": null,
+      "deadline_type": "rolling",
+      "deadline_note": "Applications opened Friday, September 4, 2026; no closing deadline is posted on the program page — the training cohort starts in February, so apply early",
       "majors": [
         "Biology / Life Sciences",
         "Chemistry",
         "Engineering"
       ],
-      "area": [
+      "research_areas": [
         "Biotechnology",
         "Biology / Life Sciences"
       ],
@@ -482,27 +522,29 @@
       "funding": "Fully funded — paid training, paid lab research placement, and paid internship pathway; no financial burden on students",
       "location": "Berkeley, CA · QB3 / Bakar Bio Labs",
       "source": "https://qb3.org/break-into-biotech/",
-      "sourceName": "QB3 — Break into Biotech program page",
-      "verified": "Oct 22, 2026",
-      "added": 16,
-      "keywords": "qb3 break into biotech paid training benchwork bakar bio labs internship startup"
+      "source_name": "QB3 — Break into Biotech program page",
+      "keywords": "qb3 break into biotech paid training benchwork bakar bio labs internship startup",
+      "verified_at": "2026-10-22",
+      "added_at": "2026-10-20"
     },
     {
       "id": "bcnm-undergraduate-research-fellowship",
       "title": "BCNM Undergraduate Research Fellowship",
       "org": "Berkeley Center for New Media (BCNM)",
       "type": "Fellowship",
-      "deadline": "2027-03-01",
-      "deadlineEstimated": true,
-      "deadlineNote": "Representative date — annual March 1 deadline per the BCNM page; the undergraduate call opens by the start of spring semester, verify on the BCNM page",
       "status": "open",
+      "deadline": "2027-03-01",
+      "deadline_type": "estimated",
+      "deadline_note": "Representative date — annual March 1 deadline per the BCNM page; the undergraduate call opens by the start of spring semester, verify on the BCNM page",
       "majors": [
         "Interdisciplinary",
         "Humanities",
         "Social Sciences",
         "Computer Science"
       ],
-      "area": "New Media",
+      "research_areas": [
+        "New Media"
+      ],
       "dept": "Berkeley Center for New Media",
       "eligibility": "Open to undergraduate students researching new media; priority given to students undertaking the New Media Certificate or Designated Emphasis programs",
       "level": "All undergraduate levels",
@@ -513,23 +555,24 @@
       "funding": "$1,000 fellowship for approximately 50 hours of work; graduate student mentors receive $500",
       "location": "Berkeley, CA",
       "source": "https://bcnm.berkeley.edu/resources/2851/undergraduate-research-fellowship",
-      "sourceName": "BCNM — Undergraduate Research Fellowship",
-      "verified": "Oct 22, 2026",
-      "added": 17,
-      "keywords": "bcnm new media fellowship undergraduate research graduate mentor symposium digital media"
+      "source_name": "BCNM — Undergraduate Research Fellowship",
+      "keywords": "bcnm new media fellowship undergraduate research graduate mentor symposium digital media",
+      "verified_at": "2026-10-22",
+      "added_at": "2026-10-21"
     },
     {
       "id": "biology-scholars-program",
       "title": "Biology Scholars Program (BSP)",
       "org": "Biology Scholars Program",
       "type": "Research Program",
+      "status": "open",
       "deadline": null,
-      "deadlineNote": "No single annual deadline is posted — membership admission runs through BSP and its research placements are for members; check the BSP apply page for the current window",
-      "status": "rolling",
+      "deadline_type": "rolling",
+      "deadline_note": "No single annual deadline is posted — membership admission runs through BSP and its research placements are for members; check the BSP apply page for the current window",
       "majors": [
         "Biology / Life Sciences"
       ],
-      "area": [
+      "research_areas": [
         "Biology / Life Sciences",
         "Public Health"
       ],
@@ -543,10 +586,10 @@
       "funding": "Advising, community, and coursework support for all members; research stipends available to members through the Research Fellows Program",
       "location": "Berkeley, CA · Valley Life Sciences Building",
       "source": "https://bsp.berkeley.edu/about/apply-bsp",
-      "sourceName": "Biology Scholars Program — Apply to BSP",
-      "verified": "Oct 22, 2026",
-      "added": 18,
-      "keywords": "bsp biology scholars program first-generation low-income research placement stipend mcb ib"
+      "source_name": "Biology Scholars Program — Apply to BSP",
+      "keywords": "bsp biology scholars program first-generation low-income research placement stipend mcb ib",
+      "verified_at": "2026-10-22",
+      "added_at": "2026-10-22"
     }
   ]
 }
