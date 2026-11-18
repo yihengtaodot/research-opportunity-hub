@@ -715,7 +715,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   if(initialListing) openDetail(initialListing, true);
 
   document.querySelectorAll("[data-form]").forEach(b=>b.addEventListener("click",()=>openForm(b.dataset.form)));
-  document.querySelectorAll("[data-close]").forEach(el=>el.addEventListener("click",closeModals));
+  // Wrap: passing closeModals directly would hand it the click event as `fromHash` and skip clearing the hash.
+  document.querySelectorAll("[data-close]").forEach(el=>el.addEventListener("click",()=>closeModals()));
   document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModals(); });
 
   render();
