@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yihengtaodot/research-opportunity-hub/data/schema/opportunity.schema.json",
+  "title": "Opportunity",
+  "description": "One research opportunity listing (schema 1.0). Field names are the planned Postgres column names. Values of type, majors, research_areas and dept must also appear in data/taxonomy.json; scripts/validate.mjs checks that and the cross-field rules listed in x-rules.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "title", "org", "type", "status", "deadline", "deadline_type", "deadline_note",
+    "majors", "research_areas", "dept", "eligibility", "level", "description",
+    "responsibilities", "requirements", "process", "funding", "location",
+    "source", "source_name", "keywords", "verified_at", "added_at"
+  ],
+  "properties": {
+    "id":               { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Stable slug; primary key; used in #listing-<id> links." },
+    "title":            { "type": "string", "minLength": 1 },
+    "org":              { "type": "string", "minLength": 1, "description": "Host lab / program / organization as shown on the card." },
+    "type":             { "type": "string", "minLength": 1, "description": "One of taxonomy.opportunity_types." },
+    "status":           { "type": "string", "enum": ["open", "closed"] },
+    "deadline":         { "type": ["string", "null"], "format": "date", "description": "ISO date (YYYY-MM-DD) or null." },
+    "deadline_type":    { "type": "string", "enum": ["fixed", "estimated", "rolling", "closed"], "description": "fixed: confirmed date. estimated: representative / prior-cycle date. rolling: no fixed deadline. closed: not accepting applications." },
+    "deadline_note":    { "type": "string" },
+    "majors":           { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 }, "description": "Values from taxonomy.majors." },
+    "research_areas":   { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 }, "description": "Values from taxonomy.research_areas[].name." },
+    "dept":             { "type": "string", "minLength": 1, "description": "One of taxonomy.departments." },
+    "eligibility":      { "type": "string" },
+    "level":            { "type": "string" },
+    "description":      { "type": "string" },
+    "responsibilities": { "type": "string" },
+    "requirements":     { "type": "string" },
+    "process":          { "type": "string" },
+    "funding":          { "type": "string" },
+    "location":         { "type": "string" },
+    "source":           { "type": "string", "pattern": "^https://", "description": "Official page. Must be https." },
+    "source_name":      { "type": "string", "minLength": 1 },
+    "keywords":         { "type": "string", "description": "Extra search terms, space separated." },
+    "verified_at":      { "type": "string", "format": "date" },
+    "added_at":         { "type": "string", "format": "date" }
+  },
+  "x-rules": [
+    "id is unique across the dataset",
+    "deadline_type = closed  <=>  status = closed",
+    "deadline_type in (fixed, estimated)  =>  deadline is a date",
+    "deadline_type = rolling  =>  deadline is null",
+    "deadline_type = closed  =>  deadline is null or a date (kept for history)"
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "taxonomy_version": "1.0",
+  "updated_at": "2026-11-18",
+  "notes": "Controlled vocabularies for data/opportunities.json. List order is display order. The page hides any option that no listing uses explicitly. 'Open to All Majors' is a wildcard: those listings match every major and interest filter.",
+  "opportunity_types": [
+    "Faculty Lab",
+    "URAP",
+    "Fellowship",
+    "Summer Research",
+    "Research Program",
+    "Research Funding",
+    "Other"
+  ],
+  "majors": [
+    "Biology / Life Sciences",
+    "Chemistry",
+    "Computer Science",
+    "Data Science",
+    "Engineering",
+    "Psychology",
+    "Public Health",
+    "Social Sciences",
+    "Humanities",
+    "Interdisciplinary",
+    "Open to All Majors"
+  ],
+  "research_areas": [
+    { "name": "AI / Machine Learning", "emoji": "🤖" },
+    { "name": "Data Science", "emoji": "📊" },
+    { "name": "Molecular Biology", "emoji": "🧬" },
+    { "name": "Chemistry", "emoji": "🧪" },
+    { "name": "Climate / Environment", "emoji": "🌎" },
+    { "name": "Energy Systems", "emoji": "⚡" },
+    { "name": "Public Policy", "emoji": "🏛️" },
+    { "name": "Public Health", "emoji": "🏥" },
+    { "name": "Economics", "emoji": "📈" },
+    { "name": "Social Science", "emoji": "🧠" },
+    { "name": "Humanities", "emoji": "📚" },
+    { "name": "Interdisciplinary", "emoji": "🔀" },
+    { "name": "Neuroscience", "emoji": "🧠" },
+    { "name": "Genetics", "emoji": "🧬" },
+    { "name": "National Laboratory Research", "emoji": "⚛️" },
+    { "name": "Biotechnology", "emoji": "🧫" },
+    { "name": "Biology / Life Sciences", "emoji": "🧬" },
+    { "name": "STEM Diversity & PhD Preparation", "emoji": "🌱" },
+    { "name": "New Media", "emoji": "🎨" }
+  ],
+  "departments": [
+    "EECS",
+    "College of Chemistry",
+    "CDSS",
+    "Office of Undergraduate Research",
+    "College of Letters & Science",
+    "Matsui Center",
+    "Energy & Resources Group",
+    "Lawrence Berkeley National Laboratory",
+    "Institute of Governmental Studies",
+    "UC Berkeley (Amgen Scholars Program)",
+    "Cal NERDS STEM Center",
+    "QB3-Berkeley / Bakar Bio Labs",
+    "Berkeley Center for New Media",
+    "Biological Sciences"
+  ],
+  "interests": [
+    { "id": "computer-science", "label": "Computer Science", "emoji": "💻", "majors": ["Computer Science"], "research_areas": [] },
+    { "id": "biology", "label": "Biology", "emoji": "🧬", "majors": ["Biology / Life Sciences"], "research_areas": ["Biology / Life Sciences", "Molecular Biology"] },
+    { "id": "psychology", "label": "Psychology", "emoji": "🧠", "majors": ["Psychology"], "research_areas": ["Neuroscience"] },
+    { "id": "environment", "label": "Environment", "emoji": "🌎", "majors": [], "research_areas": ["Climate / Environment", "Energy Systems"] },
+    { "id": "ai", "label": "AI", "emoji": "🤖", "majors": [], "research_areas": ["AI / Machine Learning"] },
+    { "id": "healthcare", "label": "Healthcare", "emoji": "🏥", "majors": ["Public Health"], "research_areas": ["Public Health"] },
+    { "id": "data-science", "label": "Data Science", "emoji": "📊", "majors": ["Data Science"], "research_areas": ["Data Science"] }
+  ]
+}
