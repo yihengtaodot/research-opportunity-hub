@@ -38,7 +38,7 @@ One click on any listing with a future deadline opens a **pre-filled Google Cale
 ### Community upkeep
 - **Suggest an Opportunity** — submit a listing that's missing
 - **Report an Update** — flag outdated information
-- Submissions open a pre-filled **GitHub issue** in this repo (a free GitHub account is needed to post), so they land where maintainers can review and act on them (no silent black hole). Forms deliberately collect no email address — issues in this public repo are visible to everyone
+- Submissions are sent **in-page** to a small Cloudflare Worker (`worker/`), which posts them as **GitHub issues** in this repo automatically — no redirect and no GitHub account needed, and they still land where maintainers can review and act on them (no silent black hole). If the Worker is unreachable, the form falls back to a pre-filled GitHub issue link. Forms deliberately collect no email address — issues in this public repo are visible to everyone
 - Every listing shows its **last-verified date**
 
 ## Project structure
@@ -53,6 +53,10 @@ research-opportunity-hub/
 │       └── opportunity.schema.json  # JSON Schema for one listing
 ├── scripts/
 │   └── validate.mjs                 # Data validator (Node, no dependencies)
+├── worker/
+│   ├── worker.js                    # Cloudflare Worker that files form submissions as issues
+│   ├── wrangler.toml
+│   └── README.md                    # Worker setup (token, secret, deploy)
 ├── docs/
 │   ├── ROADMAP.md
 │   └── P0_TEST_CHECKLIST.md         # Manual test steps for the P0 fixes

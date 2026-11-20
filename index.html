@@ -540,6 +540,60 @@ function toast(msg){
 }
 
 /* ---- forms ---- */
+// Submissions are sent in-page to a small Cloudflare Worker (see worker/),
+// which files them as GitHub issues in this repo — visitors never leave the
+// page and need no GitHub account. Until the Worker is deployed, leave
+// FORM_ENDPOINT empty: the form then falls back to a pre-filled GitHub
+// issue link, so a report is never lost.
+const FORM_ENDPOINT = "https://hub-form.yiheng-tao.workers.dev";
+
+function formTitleBody(p){
+  let title, lines;
+  if(p.kind==="suggest"){
+    title = "[Suggestion] " + p.name;
+    lines = [
+      "**Opportunity name:** " + p.name,
+      "**Host lab / program / department:** " + p.org,
+      "**Official page:** " + p.link,
+      "**Application deadline:** " + (p.deadline || "—"),
+      "**Notes:** " + (p.notes || "—"),
+    ];
+  } else {
+    title = "[Update] " + p.listing;
+    lines = [
+      "**Listing:** " + p.listing,
+      "**What needs updating:** " + p.issue,
+      "**Correct link:** " + (p.link || "—"),
+    ];
+  }
+  return { title, body: lines.join("\n") + "\n\n---\nSubmitted via the Research Opportunity Hub form." };
+}
+function githubIssueUrl(p){
+  const t = formTitleBody(p);
+  return "https://github.com/yihengtaodot/research-opportunity-hub/issues/new?title=" + encodeURIComponent(t.title) + "&body=" + encodeURIComponent(t.body);
+}
+function formPanel(html){
+  document.getElementById("formContent").innerHTML = html;
+  const c = document.getElementById("panelClose");
+  if(c) c.addEventListener("click", ()=>closeModals());
+}
+function showFormSuccess(p, data){
+  const what = p.kind==="suggest" ? "suggestion" : "report";
+  const ref = data && data.number ? ` as <a href="${esc(data.url)}" target="_blank" rel="noopener">issue #${data.number}</a> in our GitHub repo` : "";
+  formPanel(`
+    <h2 style="margin:0 0 6px;color:var(--berkeley-blue)">Thanks — it's in!</h2>
+    <p style="color:var(--muted);font-size:.93rem;margin:0 0 18px">Your ${what} has been recorded${ref}. The maintainers will review it — nothing else you need to do.</p>
+    <div class="modal-actions"><button class="btn btn-primary" type="button" id="panelClose">Done</button></div>`);
+}
+function showFormFallback(p, msg){
+  // A real anchor the user clicks themselves — never popup-blocked.
+  formPanel(`
+    <h2 style="margin:0 0 6px;color:var(--berkeley-blue)">One more step</h2>
+    <p style="color:var(--muted);font-size:.93rem;margin:0 0 18px">${esc(msg)}</p>
+    <div class="modal-actions"><a class="btn btn-primary" href="${esc(githubIssueUrl(p))}" target="_blank" rel="noopener">Continue to GitHub →</a>
+    <button class="btn btn-outline" type="button" id="panelClose">Close</button></div>
+    <p style="color:var(--muted);font-size:.82rem;margin:12px 0 0">That opens your pre-filled ${p.kind==="suggest"?"suggestion":"report"} on GitHub. If you're not signed in, you'll see a sign-in page first — your form appears right after.</p>`);
+}
 function openForm(kind, preselectTitle){
   const isSuggest = kind==="suggest";
   document.getElementById("formContent").innerHTML = `
@@ -557,37 +611,35 @@ function openForm(kind, preselectTitle){
         <select id="ff-which" required><option value="">Select an opportunity…</option>${OPPORTUNITIES.map(o=>`<option>${esc(o.title)}</option>`).join("")}<option>Another listing</option></select></div>
       <div class="form-field"><label for="ff-issue">What needs updating? *</label><textarea id="ff-issue" required placeholder="e.g. The deadline is now March 10, not March 14."></textarea></div>
       <div class="form-field"><label for="ff-link2">Correct link (if any)</label><input id="ff-link2" type="url" placeholder="https://…"></div>`}
+      <div style="display:none" aria-hidden="true"><label>Company<input id="ff-company" tabindex="-1" autocomplete="off"></label></div>
       <div class="modal-actions"><button class="btn btn-primary" type="submit">Submit</button></div>
-      <p style="color:var(--muted);font-size:.82rem;margin:12px 0 0">Submitting opens a pre-filled issue in our public GitHub repo — you'll need a free GitHub account to post it, and you review and confirm it there. Issues are public, so please don't include personal contact details.</p>
+      <p style="color:var(--muted);font-size:.82rem;margin:12px 0 0">Submitting sends your report straight to the maintainers from this page — no account needed. Reports are posted as public issues in our GitHub repo so the team can track them, so please don't include personal contact details.</p>
     </form>`;
   openModal("formModal");
   if(!isSuggest && preselectTitle){ const sel = document.getElementById("ff-which"); if(sel) sel.value = preselectTitle; }
-  document.getElementById("hubForm").addEventListener("submit", e=>{
+  document.getElementById("hubForm").addEventListener("submit", async e=>{
     e.preventDefault();
     const v = id => (document.getElementById(id)?.value || "").trim();
-    let title, lines;
-    if(isSuggest){
-      title = "[Suggestion] " + v("ff-name");
-      lines = [
-        "**Opportunity name:** " + v("ff-name"),
-        "**Host lab / program / department:** " + v("ff-org"),
-        "**Official page:** " + v("ff-link"),
-        "**Application deadline:** " + (v("ff-dl") || "—"),
-        "**Notes:** " + (v("ff-notes") || "—"),
-      ];
-    } else {
-      title = "[Update] " + v("ff-which");
-      lines = [
-        "**Listing:** " + v("ff-which"),
-        "**What needs updating:** " + v("ff-issue"),
-        "**Correct link:** " + (v("ff-link2") || "—"),
-      ];
+    const payload = isSuggest
+      ? { kind:"suggest", name:v("ff-name"), org:v("ff-org"), link:v("ff-link"), deadline:v("ff-dl"), notes:v("ff-notes"), company:v("ff-company") }
+      : { kind:"report", listing:v("ff-which"), issue:v("ff-issue"), link:v("ff-link2"), company:v("ff-company") };
+    // Honeypot: the hidden company field is only ever filled by bots.
+    // Show the normal success panel and send nothing.
+    if(payload.company){ showFormSuccess(payload, null); return; }
+    if(!FORM_ENDPOINT){
+      showFormFallback(payload, "This form isn't connected to the submission service yet — you can still post your report on GitHub:");
+      return;
     }
-    const body = lines.filter(Boolean).join("\n") + "\n\n---\nSubmitted via the Research Opportunity Hub form.";
-    const url = "https://github.com/yihengtaodot/research-opportunity-hub/issues/new?title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
-    window.open(url, "_blank", "noopener");
-    closeModals();
-    toast("Opening GitHub to finish your submission — review it there and click Submit new issue.");
+    const btn = e.target.querySelector("button[type=submit]");
+    btn.disabled = true; btn.textContent = "Sending…";
+    try {
+      const r = await fetch(FORM_ENDPOINT, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(payload) });
+      const data = await r.json().catch(()=>({}));
+      if(!r.ok || !data.ok) throw new Error("send failed");
+      showFormSuccess(payload, data);
+    } catch(err) {
+      showFormFallback(payload, "Sending didn't go through — but your report isn't lost. You can post it on GitHub instead:");
+    }
   });
 }
 
